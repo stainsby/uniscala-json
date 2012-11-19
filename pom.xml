@@ -25,7 +25,7 @@
     </license>
   </licenses>
   <scm>
-    <url>git@github.com:stainsby/uniscala-json.gitn</url>
+    <url>git@github.com:stainsby/uniscala-json.git</url>
     <connection>git@github.com:stainsby/uniscala-json.git</connection>
   </scm>
   <developers>
