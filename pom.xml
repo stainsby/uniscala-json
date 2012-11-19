@@ -1,0 +1,133 @@
+<project
+    xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+        http://maven.apache.org/maven-v4_0_0.xsd">
+  
+  <modelVersion>4.0.0</modelVersion>
+  
+  <groupId>net.uniscala</groupId>
+  <artifactId>uniscala-json</artifactId>
+  <version>0.1.0-SNAPSHOT</version>
+  <name>Uniscala JSON</name>
+  <description>Simple JSON handling for Scala.</description>
+  <inceptionYear>2012</inceptionYear>
+  <organization>
+    <name>Sustainable Software Pty Ltd</name>
+    <url>http://sustainablesoftware.com.au/</url>
+  </organization>
+  
+  <packaging>jar</packaging>
+  
+  <properties>
+    <maven.compiler.source>1.6</maven.compiler.source>
+    <maven.compiler.target>1.6</maven.compiler.target>
+    <encoding>UTF-8</encoding>
+    <scala.version>2.9.2</scala.version>
+  </properties>
+  
+  <dependencies>
+    <dependency>
+      <groupId>org.scala-lang</groupId>
+      <artifactId>scala-library</artifactId>
+      <version>${scala.version}</version>
+    </dependency>
+    <dependency>
+     <groupId>org.specs2</groupId> 
+     <artifactId>specs2_2.9.2</artifactId> 
+     <version>1.12.3</version> 
+     <scope>test</scope> 
+   </dependency>
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>slf4j-log4j12</artifactId>
+      <version>1.7.2</version>
+      <scope>test</scope>
+    </dependency>
+  </dependencies>
+  
+  <build>
+    <sourceDirectory>src/main/scala</sourceDirectory>
+    <testSourceDirectory>src/test/scala</testSourceDirectory>
+    <testResources>
+      <testResource>
+        <filtering>false</filtering>
+        <directory>src/test/resources</directory>
+      </testResource>
+    </testResources>
+    <plugins>
+      <plugin>
+        <groupId>net.alchim31.maven</groupId>
+        <artifactId>scala-maven-plugin</artifactId>
+        <version>3.1.0</version>
+        <executions>
+          <execution>
+            <goals>
+              <goal>compile</goal>
+              <goal>testCompile</goal>
+            </goals>
+            <configuration>
+              <recompileMode>modified-only</recompileMode>
+              <args>
+                <arg>-deprecation</arg>
+                <arg>-unchecked</arg>
+                <arg>-no-specialization</arg>
+                <arg>-explaintypes</arg>
+                <arg>-dependencyfile</arg>
+                <arg>${project.build.directory}/.scala_dependencies</arg>
+              </args>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <groupId>com.mmakowski</groupId>
+        <artifactId>maven-specs2-plugin</artifactId>
+        <version>0.3.0</version>
+        <executions>
+          <execution>
+            <id>test</id>
+            <phase>test</phase>
+            <goals>
+              <goal>run-specs</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-surefire-plugin</artifactId>
+        <version>2.6</version>
+        <configuration>
+          <skip>true</skip>
+          <useFile>false</useFile>
+          <disableXmlReport>true</disableXmlReport>
+          <includes>
+            <include>**/*Test.*</include>
+            <include>**/*Suite.*</include>
+          </includes>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>com.mycila.maven-license-plugin</groupId>
+        <artifactId>maven-license-plugin</artifactId>
+        <version>1.9.0</version>
+        <configuration>
+          <basedir>${basedir}/src</basedir>
+          <header>COPYRIGHT_HEADER</header>
+          <strictCheck>true</strictCheck>
+          <excludes>
+          </excludes>
+        </configuration>
+          <executions>
+            <execution>
+              <goals>
+                <goal>check</goal>
+              </goals>
+            </execution>
+          </executions>
+      </plugin>
+      
+    </plugins>
+  </build>
+</project>
