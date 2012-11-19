@@ -10,12 +10,31 @@
   <artifactId>uniscala-json</artifactId>
   <version>0.1.0</version>
   <name>Uniscala JSON</name>
-  <description>Simple JSON handling for Scala.</description>
+  <description>A compact JSON library written in Scala.</description>
   <inceptionYear>2012</inceptionYear>
   <organization>
     <name>Sustainable Software Pty Ltd</name>
     <url>http://sustainablesoftware.com.au/</url>
   </organization>
+  <url>https://github.com/stainsby/uniscala-json</url>
+  <licenses>
+    <license>
+      <name>The Apache Software License, Version 2.0</name>
+      <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+      <distribution>repo</distribution>
+    </license>
+  </licenses>
+  <scm>
+    <url>git@github.com:stainsby/uniscala-json.gitn</url>
+    <connection>git@github.com:stainsby/uniscala-json.git</connection>
+  </scm>
+  <developers>
+    <developer>
+      <id>stainsby</id>
+      <name>Sam Stainsby</name>
+      <email>sam@sustainablesoftware.com.au</email>
+    </developer>
+  </developers>
   
   <packaging>jar</packaging>
   
