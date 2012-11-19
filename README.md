@@ -415,8 +415,8 @@ testing and similar:
     res0: String = ...
 
 
-
-[scaladoc]: ./scaladocs/index.html "Scaladoc"
+[GitHub]: https://github.com/stainsby/uniscala-json "Uniscala JSON on GitHub"
 [json]: http://json.org/ "Introducing JSON"
 [license]: http://www.apache.org/licenses/LICENSE-2.0 "Apache License Version 2.0, January 2004"
+[scaladoc]: ./scaladocs/index.html "Scaladoc"
 [ss]: http://sustainablesoftware.com.au/ "Sustainable Software Pty Ltd"
