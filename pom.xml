@@ -8,7 +8,7 @@
   
   <groupId>net.uniscala</groupId>
   <artifactId>uniscala-json</artifactId>
-  <version>0.2.0-SNAPSHOT</version>
+  <version>0.2-SNAPSHOT</version>
   <name>Uniscala JSON</name>
   <description>A compact JSON library written in Scala.</description>
   <inceptionYear>2012</inceptionYear>
@@ -25,8 +25,8 @@
     </license>
   </licenses>
   <scm>
+    <connection>scm:git:git@github.com:stainsby/uniscala-json.git</connection>
     <url>git@github.com:stainsby/uniscala-json.git</url>
-    <connection>git@github.com:stainsby/uniscala-json.git</connection>
   </scm>
   <developers>
     <developer>
@@ -76,11 +76,25 @@
     </testResources>
     <plugins>
       <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-source-plugin</artifactId>
+        <version>2.2.1</version>
+        <executions>
+          <execution>
+            <id>attach-sources</id>
+            <goals>
+              <goal>jar</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
         <groupId>net.alchim31.maven</groupId>
         <artifactId>scala-maven-plugin</artifactId>
         <version>3.1.0</version>
         <executions>
           <execution>
+            <id>compile</id>
             <goals>
               <goal>compile</goal>
               <goal>testCompile</goal>
@@ -95,6 +109,18 @@
                 <arg>-dependencyfile</arg>
                 <arg>${project.build.directory}/.scala_dependencies</arg>
               </args>
+            </configuration>
+          </execution>
+          <execution>
+            <id>doc</id>
+            <phase>process-classes</phase>
+            <goals>
+              <goal>doc</goal>
+              <goal>doc-jar</goal>
+            </goals>
+            <configuration>
+            <reportOutputDirectory>${project.build.directory}</reportOutputDirectory>
+            <outputDirectory>scaladocs</outputDirectory>
             </configuration>
           </execution>
         </executions>
@@ -118,14 +144,24 @@
         <artifactId>maven-surefire-plugin</artifactId>
         <version>2.6</version>
         <configuration>
-          <skip>true</skip>
-          <useFile>false</useFile>
-          <disableXmlReport>true</disableXmlReport>
-          <includes>
-            <include>**/*Test.*</include>
-            <include>**/*Suite.*</include>
-          </includes>
+          <skipTests>true</skipTests>
         </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-gpg-plugin</artifactId>
+        <version>1.4</version>
+        <configuration>
+        </configuration>
+        <executions>
+          <execution>
+            <id>sign-artifacts</id>
+            <phase>verify</phase>
+            <goals>
+              <goal>sign</goal>
+            </goals>
+          </execution>
+        </executions>
       </plugin>
       <plugin>
         <groupId>com.mycila.maven-license-plugin</groupId>
@@ -146,7 +182,6 @@
             </execution>
           </executions>
       </plugin>
-      
     </plugins>
   </build>
 </project>
