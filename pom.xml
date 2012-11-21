@@ -8,7 +8,7 @@
   
   <groupId>net.uniscala</groupId>
   <artifactId>uniscala-json</artifactId>
-  <version>0.1.0</version>
+  <version>0.1</version>
   <name>Uniscala JSON</name>
   <description>A compact JSON library written in Scala.</description>
   <inceptionYear>2012</inceptionYear>
