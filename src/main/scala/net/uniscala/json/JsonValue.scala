@@ -125,32 +125,32 @@ extends MapBuilder[String, JsonValue[_], JsonObject](JsonObject.empty)
  * Represents the JSON object texts.
  * Values are stored as JsonValue instances.
  */
-case class JsonObject(map: Map[String, JsonValue[_]])
+case class JsonObject(inner: Map[String, JsonValue[_]])
 extends JsonTop[Map[String, JsonValue[_]]]
 with Map[String, JsonValue[_]]
 with MapLike[String, JsonValue[_], JsonObject] {
   
-  override def value = map
+  override def value = inner
   
-  override def get(key: String) = map.get(key)
+  override def get(key: String) = inner.get(key)
   
-  override def iterator = map.iterator
+  override def iterator = inner.iterator
   
   override def + [B1 >: JsonValue[_]](kv: (String, B1)) = kv match {
     case (s: String, j: JsonValue[_]) => {
       val newEntry: (String, JsonValue[_]) = (s, j)
-      new JsonObject(map + newEntry)
+      new JsonObject(inner + newEntry)
     }
-    case _ => map + kv
+    case _ => inner + kv
   }
   
   /**
    * Merge the supplied key-value pairs with this JSON object to create a 
    * new JSON object.
    */
-  def merge(kv: (String, JsonValue[_])*): JsonObject = JsonObject(map ++ kv)
+  def merge(kv: (String, JsonValue[_])*): JsonObject = JsonObject(inner ++ kv)
   
-  override def - (key: String) = JsonObject(map - key)
+  override def - (key: String) = JsonObject(inner - key)
   
   override def empty = JsonObject()
   
@@ -162,7 +162,7 @@ with MapLike[String, JsonValue[_], JsonObject] {
     val builder = new StringBuilder
     builder += '{'
     var first = true
-    map foreach { pair =>
+    inner foreach { pair =>
       if (first) {
         first = false
       } else {
@@ -190,7 +190,7 @@ with MapLike[String, JsonValue[_], JsonObject] {
     builder += '{'
     var first = true
     val newMargin = margin + indent
-    map foreach { pair =>
+    inner foreach { pair =>
       if (first) {
         first = false
       } else {
@@ -251,18 +251,18 @@ extends Builder[JsonValue[_], JsonArray] {
  * Represents the JSON array texts.
  * Elements are stored as JsonValue instances.
  */
-case class JsonArray(values: Vector[JsonValue[_]])
+case class JsonArray(inner: Vector[JsonValue[_]])
 extends JsonTop[Vector[JsonValue[_]]]
 with IndexedSeq[JsonValue[_]]
 with IndexedSeqLike[JsonValue[_], JsonArray] {
   
-  override def value = values
+  override def value = inner
   
-  override def apply(i: Int): JsonValue[_] = values(i)
+  override def apply(i: Int): JsonValue[_] = inner(i)
   
-  override def length = values.length
+  override def length = inner.length
   
-  override def iterator = values.iterator
+  override def iterator = inner.iterator
   
   override def newBuilder: Builder[JsonValue[_], JsonArray] =
     JsonArray.newBuilder
@@ -276,7 +276,7 @@ with IndexedSeqLike[JsonValue[_], JsonArray] {
     builder += '['
     var first = true
     val newMargin = margin + indent
-    values foreach { v =>
+    inner foreach { v =>
       if (first) {
         first = false
       } else {
@@ -301,7 +301,7 @@ with IndexedSeqLike[JsonValue[_], JsonArray] {
     val builder = new StringBuilder
     builder += '['
     var first = true
-    values foreach { v =>
+    inner foreach { v =>
       if (first) {
         first = false
       } else {
