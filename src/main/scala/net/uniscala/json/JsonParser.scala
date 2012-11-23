@@ -269,7 +269,7 @@ class JsonParser(reader: Reader) {
    */
   protected def jnull: JsonNull.type = {
     skipWhitespace
-    matchToken("null")
+    consumeChars("null")
     JsonNull
   }
   
@@ -282,10 +282,10 @@ class JsonParser(reader: Reader) {
     val isTrue = ch == 't'
     val isFalse = ch == 'f'
     if (isTrue) {
-      matchToken("true")
+      consumeChars("true")
       JsonTrue
     } else if (isFalse) {
-      matchToken("false")
+      consumeChars("false")
       JsonFalse
     } else {
       throwError("invalid JSON boolean")
@@ -370,7 +370,7 @@ class JsonParser(reader: Reader) {
    * Note that the read position will end up after (not on) the last 
    * digit.
    */
-  private def digits: String = matchToken(_.isDigit)
+  private def digits: String = consumeChars(_.isDigit)
   
   private def expPart: String = {
     val sign = if (ch == '+') "+" else if (ch == '-') "-" else ""
@@ -383,10 +383,10 @@ class JsonParser(reader: Reader) {
    * Note that the read position will end up after (not on) the last token 
    * character.
    */
-  private def matchToken(token: Seq[Char]): Unit = {
-    val lastIdx = token.length - 1
+  private def consumeChars(chars: Seq[Char]): Unit = {
+    val lastIdx = chars.length - 1
     var idx = 0
-    token foreach { c =>
+    chars foreach { c =>
       expectChar(c)
       if (idx != lastIdx) advance
       idx += 1
@@ -399,11 +399,11 @@ class JsonParser(reader: Reader) {
    * non-accepted character is reached. Note that the read position will 
    * end up after (not on) the last accepted character.
    */
-  private def matchToken(accept: Char => Boolean): String = {
+  private def consumeChars(accept: Char => Boolean): String = {
     skipWhitespace
-    if (!accept(ch)) throwError("expected hex digits")
+    if (!accept(ch)) throwError("unexpected character: " + ch)
     val builder = new StringBuilder
-    while(ch.isDigit) {
+    while(accept(ch)) {
      builder += ch
      advance
     }
