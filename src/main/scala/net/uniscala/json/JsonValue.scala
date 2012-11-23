@@ -36,8 +36,8 @@ sealed abstract class JsonValue[V] extends Immutable {
  * objects and arrays.
  */
 sealed abstract class JsonTop[V] extends JsonValue[V] {
-  def toCompactString(): String = toString
-  def toPrettyString(): String = toPrettyString_("", "  ")
+  def toCompactString(): String //= toString
+  def toPrettyString(): String //= toPrettyString_("", "  ")
   private[json] def toPrettyString_(margin: String, indent: String): String
 }
 
@@ -96,6 +96,8 @@ case class JsonInteger(value: Long) extends JsonNumber[Long]
 case class JsonFloat(value: Double) extends JsonNumber[Double]
 
 
+// JSON objects
+
 object JsonObject {
   
   def apply(values: (String, JsonValue[_])*): JsonObject =
@@ -105,113 +107,17 @@ object JsonObject {
   
   def fromSeq(values: Seq[(String, JsonValue[_])]): JsonObject =
     new JsonObject(Map(values:_*))
-  
-  implicit def canBuildFrom: CanBuildFrom[JsonObject, (String, JsonValue[_]), JsonObject] = 
-    new CanBuildFrom[JsonObject, (String, JsonValue[_]), JsonObject] { 
-      def apply(from: JsonObject) = apply
-      def apply() = newBuilder
-  }
-  
-  def newBuilder: Builder[(String, JsonValue[_]), JsonObject] = {
-    new JsonObjectBuilder
-  }
 }
-
-private[json] class JsonObjectBuilder
-extends MapBuilder[String, JsonValue[_], JsonObject](JsonObject.empty)
-
 
 /**
  * Represents the JSON object texts.
  * Values are stored as JsonValue instances.
  */
 case class JsonObject(value: Map[String, JsonValue[_]])
-extends JsonTop[Map[String, JsonValue[_]]]
-with Map[String, JsonValue[_]]
-with MapLike[String, JsonValue[_], JsonObject] {
-  
-  override def get(key: String) = value.get(key)
-  
-  override def iterator = value.iterator
-  
-  override def + [B1 >: JsonValue[_]](kv: (String, B1)) = kv match {
-    case (s: String, j: JsonValue[_]) => {
-      val newEntry: (String, JsonValue[_]) = (s, j)
-      new JsonObject(value + newEntry)
-    }
-    case _ => value + kv
-  }
-  
-  /**
-   * Merge the supplied key-value pairs with this JSON object to create a 
-   * new JSON object.
-   */
-  def merge(kv: (String, JsonValue[_])*): JsonObject = JsonObject(value ++ kv)
-  
-  override def - (key: String) = JsonObject(value - key)
-  
-  override def empty = JsonObject()
-  
-  override lazy val toString = toStringBase(false)
-  
-  override def toCompactString = toStringBase(true)
-  
-  private def toStringBase(compact: Boolean): String = {
-    val builder = new StringBuilder
-    builder += '{'
-    var first = true
-    value foreach { pair =>
-      if (first) {
-        first = false
-      } else {
-        builder append (if (compact) "," else ", ")
-      }
-      builder append { '"' + pair._1 + '"' }
-      builder append (if (compact) ":" else ": ")
-      builder append {
-        if (compact) {
-          pair._2 match {
-            case top: JsonTop[_] => top.toCompactString
-            case other => other.toString
-          }
-        } else {
-          pair._2.toString
-        }
-      }
-    }
-    builder += '}'
-    builder.toString
-  }
-  
-  override def toPrettyString_(margin: String, indent: String): String = {
-    val builder = new StringBuilder
-    builder += '{'
-    var first = true
-    val newMargin = margin + indent
-    value foreach { pair =>
-      if (first) {
-        first = false
-      } else {
-        builder += ','
-      }
-      builder += '\n'
-      builder append newMargin
-      builder append { '"' + pair._1 + '"' }
-      builder append ": "
-      builder append {
-        pair._2 match {
-          case top: JsonTop[_] => top.toPrettyString_(newMargin, indent)
-          case other => other.toString
-        }
-      }
-    }
-    builder += '\n'
-    builder append margin
-    builder += '}'
-    builder.toString
-    
-  }
-}
+extends JsonTop[Map[String, JsonValue[_]]] with JsonObjectLike
+
+
+// JSON arrays
 
 
 object JsonArray {
@@ -223,98 +129,11 @@ object JsonArray {
   
   def fromSeq(values: Seq[JsonValue[_]]): JsonArray =
     new JsonArray(Vector(values:_*))
-  
-  implicit def canBuildFrom: CanBuildFrom[JsonArray, JsonValue[_], JsonArray] = 
-    new CanBuildFrom[JsonArray, JsonValue[_], JsonArray] { 
-      override def apply(from: JsonArray) = apply
-      override def apply = newBuilder
-  }
-  
-  def newBuilder: Builder[JsonValue[_], JsonArray] = new JsonArrayBuilder
 }
-
-private[json] class JsonArrayBuilder private(inner: VectorBuilder[JsonValue[_]])
-extends Builder[JsonValue[_], JsonArray] {
-  def this() = this(new VectorBuilder[JsonValue[_]])
-  override def +=(elem: JsonValue[_]) = {
-    inner += elem
-    this
-  }
-  override def clear = inner.clear
-  override def result = JsonArray(inner.result) 
-}
-
 
 /**
  * Represents the JSON array texts.
  * Elements are stored as JsonValue instances.
  */
 case class JsonArray(value: Vector[JsonValue[_]])
-extends JsonTop[Vector[JsonValue[_]]]
-with IndexedSeq[JsonValue[_]]
-with IndexedSeqLike[JsonValue[_], JsonArray] {
-  
-  override def apply(i: Int): JsonValue[_] = value(i)
-  
-  override def length = value.length
-  
-  override def iterator = value.iterator
-  
-  override def newBuilder: Builder[JsonValue[_], JsonArray] =
-    JsonArray.newBuilder
-  
-  override lazy val toString = toStringBase(false)
-  
-  override def toCompactString = toStringBase(true)
-  
-  override def toPrettyString_(margin: String, indent: String) = {
-    val builder = new StringBuilder
-    builder += '['
-    var first = true
-    val newMargin = margin + indent
-    value foreach { v =>
-      if (first) {
-        first = false
-      } else {
-        builder += ','
-      }
-      builder += '\n'
-      builder append newMargin
-      builder append {
-        v match {
-          case top: JsonTop[_] => top.toPrettyString_(newMargin, indent)
-          case other => other.toString
-        }
-      }
-    }
-    builder += '\n'
-    builder append margin
-    builder += ']'
-    builder.toString
-  }
-  
-  private def toStringBase(compact: Boolean) = {
-    val builder = new StringBuilder
-    builder += '['
-    var first = true
-    value foreach { v =>
-      if (first) {
-        first = false
-      } else {
-        builder append { if (compact) "," else ", " }
-      }
-      builder append {
-        if (compact) {
-          v match {
-            case top: JsonTop[_] => top.toCompactString
-            case other => other.toString
-          }
-        } else {
-          v.toString
-        }
-      }
-    }
-    builder += ']'
-    builder.toString
-  }
-}
+extends JsonTop[Vector[JsonValue[_]]] with JsonArrayLike
