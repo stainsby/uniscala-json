@@ -64,11 +64,11 @@ with MapLike[String, JsonValue[_], JsonObject] {
   
   override lazy val toString = toStringBase(false)
   
-  def toCompactString = toStringBase(true)
+  override lazy val toCompactString = toStringBase(true)
   
-  def toPrettyString(): String = toPrettyString_("", "  ")
+  override lazy val toPrettyString: String = toPrettyString_("", "  ")
   
-  def toPrettyString_(margin: String, indent: String): String = {
+  private[json] def toPrettyString_(margin: String, indent: String): String = {
     val builder = new StringBuilder
     builder += '{'
     var first = true
