@@ -200,13 +200,12 @@ class JsonParser(reader: Reader) {
     }
     if (c == -1) throwError("unexpected end of input")
     ch = c.toChar
-    //println("    '" + ch  + "' @ " + (lineCount, lineChar))
   }
   
   /**
    * Reads the next JSON value.
    */
-  protected final def jvalue: JsonValue[_] = {
+  protected def jvalue: JsonValue[_] = {
     skipWhitespace
     ch match {
       case '[' => parseArray
@@ -215,7 +214,7 @@ class JsonParser(reader: Reader) {
       case 'n' => jnull
       case d if d.isDigit | d == '-' => jnumber
       case '{' => parseObject
-      case _ => throwError("unexpected start of JSON text")
+      case _ => throwError("expected start of JSON value but got: '" + ch + "'")
     }
   }
   
