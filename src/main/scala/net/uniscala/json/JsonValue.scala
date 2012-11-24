@@ -28,6 +28,8 @@ sealed abstract class JsonValue[V] extends Immutable {
   def value(): V
   
   override def toString() = value.toString
+  
+  override def hashCode() = value.hashCode
 }
 
 
@@ -36,8 +38,8 @@ sealed abstract class JsonValue[V] extends Immutable {
  * objects and arrays.
  */
 sealed abstract class JsonTop[V] extends JsonValue[V] {
-  def toCompactString(): String //= toString
-  def toPrettyString(): String //= toPrettyString_("", "  ")
+  def toCompactString(): String
+  def toPrettyString(): String
   private[json] def toPrettyString_(margin: String, indent: String): String
 }
 

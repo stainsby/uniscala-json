@@ -68,7 +68,7 @@ with MapLike[String, JsonValue[_], JsonObject] {
   
   override lazy val toPrettyString: String = toPrettyString_("", "  ")
   
-  private[json] def toPrettyString_(margin: String, indent: String): String = {
+  override def toPrettyString_(margin: String, indent: String): String = {
     val builder = new StringBuilder
     builder += '{'
     var first = true

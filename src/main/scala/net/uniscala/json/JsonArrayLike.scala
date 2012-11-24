@@ -62,7 +62,7 @@ with IndexedSeqLike[JsonValue[_], JsonArray] {
   
   override lazy val toPrettyString: String = toPrettyString_("", "  ")
   
-  private[json] def toPrettyString_(margin: String, indent: String): String = {
+  override def toPrettyString_(margin: String, indent: String): String = {
     val builder = new StringBuilder
     builder += '['
     var first = true
