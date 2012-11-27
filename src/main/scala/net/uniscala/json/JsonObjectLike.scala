@@ -55,7 +55,7 @@ with MapLike[String, JsonValue[_], JsonObject] {
   /**
    * Add or override key-value pairs in this JSON object.
    */
-  def merge(kv: (String, JsonValue[_])*): JsonObject = JsonObject(value ++ kv)
+  def :+(kv: (String, JsonValue[_])*): JsonObject = JsonObject(value ++ kv)
   
   override def - (key: String) = JsonObject(value - key)
   

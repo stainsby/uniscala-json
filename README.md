@@ -278,16 +278,17 @@ type of `Map`, due to their inherited method signatures:
     res27: scala.collection.immutable.Map[String,net.uniscala.json.JsonValue[_]] = {"x": "cc", "y": 99}
     
 SInce this could lead to more verbose handling code, or dangerous casting,
-we supply a type-preserving `merge` operation:
+we supply a type-preserving `:+` operation:
 
-    scala> val jobj2 = jobj merge ("x" -> JsonInteger(1223))
+    scala>  val jobj2 = jobj :+ ("x" -> 1223)
     jobj2: net.uniscala.json.JsonObject = {"x": 1223, "y": "parrot"}
     
-    scala> val jobj2 = jobj merge ("x" -> JsonInteger(1223), "z" -> "lizard")
+    scala> val jobj2 = jobj :+ ("x" -> 1223, "z" -> "lizard")
     jobj2: net.uniscala.json.JsonObject = {"x": 1223, "y": "parrot", "z": "lizard"}
 
-This does essentially the same thing as `+` or `++` - merging using keys 
-only. It doesn't recurse through the values that the keys point to.
+Like `+` and `++`, this operation adds or overrides values corresponding to 
+the keys at the highest level only. It doesn't recurse through any objects 
+that the keys point to.
 
 
 ## Parsing long JSON texts
