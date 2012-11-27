@@ -53,8 +53,7 @@ with MapLike[String, JsonValue[_], JsonObject] {
   }
   
   /**
-   * Merge the supplied key-value pairs with this JSON object to create a 
-   * new JSON object.
+   * Add or override key-value pairs in this JSON object.
    */
   def merge(kv: (String, JsonValue[_])*): JsonObject = JsonObject(value ++ kv)
   
@@ -62,13 +61,128 @@ with MapLike[String, JsonValue[_], JsonObject] {
   
   override def empty = JsonObject.empty
   
+  def getAt[J <: JsonValue[_] : Manifest](path: JsonPath): Option[J] =
+    applyAt[J, J](path, (j) => j)
+  
+  def transform(
+    changes: Map[JsonPath, JsonValue[_] => JsonValue[_]]
+  ): JsonObject = {
+    pathMap {
+      case (path, json) => {
+        //println("TX @ path=" + path + " value=" + json)
+        val changeOpt = changes.get(path)
+        if (changeOpt.isDefined)
+          println("TX changes: " + changeOpt + " found at \"" + path + "\" in " + changes)
+        changeOpt.map(_(json)).getOrElse(json)
+      }
+    }
+  }
+  
+  def transform(
+    changes: (JsonPath, JsonValue[_] => JsonValue[_])*
+  ): JsonObject =
+    transform(Map(changes:_*))
+  
+  def replace(
+    changes: (JsonPath, JsonValue[_])*
+  ): JsonObject = {
+    val fnalChanges = changes map { case (path, value) =>
+      (path, (j: JsonValue[_]) => value)
+    }
+    transform(fnalChanges:_*)
+  }
+  
+  def applyAt[J <: JsonValue[_] : Manifest, T](
+    path: JsonPath, f: J => T
+  ): Option[T] = 
+    path.at[J, T](this, f)
+  
+  def treeMap(f: JsonValue[_] => JsonValue[_]) =
+    treeCollect(_ match { case j => f(j) })
+  
+  def treeCollect(
+    f: PartialFunction[JsonValue[_], JsonValue[_]]
+  ): JsonObject = {
+    
+    def treeCollect_(
+      jobj: JsonObject,
+      f: PartialFunction[JsonValue[_], JsonValue[_]]
+    ): JsonObject = {
+      JsonObject(
+        jobj flatMap { kv: (String, JsonValue[_]) =>
+          val key: String = kv._1
+          val subjson: JsonValue[_] = kv._2
+          val newSubjsonOpt = f.lift(subjson)
+          newSubjsonOpt map { newSubjson =>
+            val changed = !(subjson eq newSubjson)
+            // note: we only recurse into original sub-objects preserved
+            // under the mapping function, not into ones we are creating
+            val preserved: Boolean = newSubjson eq subjson
+            if (preserved) {
+              subjson match {
+                case subobj: JsonObject => (key, treeCollect_(subobj, f))
+                case _ => kv
+              }
+            } else {
+              (key, newSubjson)
+            }
+          }
+        }
+      )
+    }
+    
+    treeCollect_(this, f)
+  }
+  
+  def pathMap(f: Function1[(JsonPath, JsonValue[_]), JsonValue[_]]) =
+    pathCollect(_ match { case j => f(j) })
+  
+  def pathCollect(
+    f: PartialFunction[(JsonPath, JsonValue[_]), JsonValue[_]]
+  ): JsonObject = {
+    
+    def pathCollect_(
+      root: JsonPath,
+      jobj: JsonObject,
+      f: PartialFunction[(JsonPath, JsonValue[_]), JsonValue[_]]
+    ): JsonObject = {
+      JsonObject(
+        jobj flatMap { kv: (String, JsonValue[_]) =>
+          val key: String = kv._1
+          val subjson: JsonValue[_] = kv._2
+          val path = root / key
+          val newSubjsonOpt = f.lift((path, subjson))
+          newSubjsonOpt map { newSubjson =>
+            val changed = !(subjson eq newSubjson)
+            // note: we only recurse into original sub-objects preserved
+            // under the mapping function, not into ones we are creating
+            val preserved: Boolean = newSubjson eq subjson
+            if (preserved) {
+              subjson match {
+                case subobj: JsonObject => {
+                  val subpath = path / key
+                  (key, pathCollect_(subpath, subobj, f))
+                }
+                case _ => kv
+              }
+            } else {
+              (key, newSubjson)
+            }
+          }
+        }
+      )
+    }
+    
+    pathCollect_(JsonPath.root, this, f)
+  }
+  
   override lazy val toString = toStringBase(false)
   
   override lazy val toCompactString = toStringBase(true)
   
   override lazy val toPrettyString: String = toPrettyString_("", "  ")
   
-  override def toPrettyString_(margin: String, indent: String): String = {
+  def toPrettyString_(margin: String, indent: String): String = {
     val builder = new StringBuilder
     builder += '{'
     var first = true
@@ -97,7 +211,7 @@ with MapLike[String, JsonValue[_], JsonObject] {
     
   }
   
-  private def toStringBase(compact: Boolean): String = {
+  protected def toStringBase(compact: Boolean): String = {
     val builder = new StringBuilder
     builder += '{'
     var first = true
