@@ -68,13 +68,7 @@ with MapLike[String, JsonValue[_], JsonObject] {
     changes: Map[JsonPath, JsonValue[_] => JsonValue[_]]
   ): JsonObject = {
     pathMap {
-      case (path, json) => {
-        //println("TX @ path=" + path + " value=" + json)
-        val changeOpt = changes.get(path)
-        if (changeOpt.isDefined)
-          println("TX changes: " + changeOpt + " found at \"" + path + "\" in " + changes)
-        changeOpt.map(_(json)).getOrElse(json)
-      }
+      case (path, json) => changes.get(path).map(_(json)).getOrElse(json)
     }
   }
   
