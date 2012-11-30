@@ -277,7 +277,7 @@ type of `Map`, due to their inherited method signatures:
     scala> Json("x" -> 123) ++ Json("y" -> 99, "x" -> "cc")
     res27: scala.collection.immutable.Map[String,net.uniscala.json.JsonValue[_]] = {"x": "cc", "y": 99}
     
-SInce this could lead to more verbose handling code, or dangerous casting,
+Since this could lead to more verbose handling code, or dangerous casting,
 we supply a type-preserving `:+` operation:
 
     scala>  val jobj2 = jobj :+ ("x" -> 1223)
@@ -289,6 +289,228 @@ we supply a type-preserving `:+` operation:
 Like `+` and `++`, this operation adds or overrides values corresponding to 
 the keys at the highest level only. It doesn't recurse through any objects 
 that the keys point to.
+
+So far we've covered basic collection-based operations. For more transformation
+techniques, continue on the 'Paths' and  'Tree operations' below.
+
+
+### Paths
+
+Nested JSON objects give JSON a hierarchical structure. SInce version 0.2, 
+there is dedicated support for operations on JSON trees and paths through them.
+
+A `JsonPath` instance represents a path through a JSON data structure, 
+starting from the root and specifying the JSON object keys. So, for 
+example, for a JSON object like this:
+
+    scala> val user1 = Json(
+         |   "type" -> "user",
+         |   "profiles" -> Json(
+         |     "mybook"   -> Json("key" -> "AGW45HWH", "secret" -> "g4juh43ui9g929k4"),
+         |     "alt"      -> Json("key" -> "ER45DFE3", "secret" -> "0867986769de68")        
+         |   ),
+         |   "and" -> 123,
+         |   "even" -> 456,
+         |   "more" -> Json("uninteresting" -> 678, "stuff" -> 999)
+         | )
+    user1: net.uniscala.json.JsonObject = {"even": 456, "more": ...
+
+we can specify the path to the `"mybook"` profile thus:
+
+    scala> val path = new JsonPath("profiles", "mybook")
+
+allowing us the retrieve that profile like this:
+
+    scala> val profile = user1.getAt[JsonObject](path)
+    profile: Option[net.uniscala.json.JsonObject] = Some({"key": "AGW45HWH", "secret": "g4juh43ui9g929k4"})
+
+If the path was invalid, we get `None`:
+
+    scala> val x = user1.getAt[JsonObject](new JsonPath("no", "such", "thing"))
+    x: Option[net.uniscala.json.JsonObject] = None
+
+Also, we specify the expect JSON type as a type parameter to the `getAt`
+method. If the different type is found, `None` is returned:
+
+    scala> val jstring = user1.getAt[JsonString](path)
+    jstring: Option[net.uniscala.json.JsonString] = None
+    
+As a minor convenience, you can also apply a function at a value at the 
+end of a path and get the result:
+
+    scala> def reverse(json: JsonValue[_]): JsonValue[_] = json match {
+         |   case JsonString(str) => JsonString("REVERSED: " + str.reverse)
+         |   case json => json
+         | }
+    reverse: (json: net.uniscala.json.JsonValue[_])net.uniscala.json.JsonValue[_]
+    
+    scala> user1.applyAt(profiles / "mybook" / "secret", reverse)
+    res7: Option[net.uniscala.json.JsonValue[_]] = Some("REVERSED: 4k929g9iu34huj4g")
+
+Path segments can also be constructed or appended using `/`:
+
+    scala> val path = JsonPath.root / "profiles" / "mybook"
+    path: net.uniscala.json.JsonPath = profiles:mybook
+    
+    scala> val path2 = path / "secret"
+    path2: net.uniscala.json.JsonPath = profiles:mybook:secret
+
+Importing the contents of `JsonPath` also allows you to abbreviate
+`JsonPath.root` to `/`:
+
+    scala> import JsonPath._
+    import JsonPath._
+    
+    scala> val path = / / "one" / "more" / "path"
+    path: net.uniscala.json.JsonPath = one:more:path
+
+
+### Tree operations
+
+The are methods to deal with the tree-like nature of JSON. The `treeMap`
+methods operates in a similar way to the familiar functional `map`, but 
+traversing the tree structure and applying the map function to the
+values at each key. Continuing to use `user1` declared in 'Paths' above:
+
+    scala> user1.treeMap( _ match { case js: JsonString  => "ASTRING"; case j => j } ) toPrettyString
+    res14: String = 
+    {
+      "even": 456,
+      "more": {
+        "uninteresting": 678,
+        "stuff": 999
+      },
+      "type": "ASTRING",
+      "and": 123,
+      "profiles": {
+        "mybook": {
+          "key": "ASTRING",
+          "secret": "ASTRING"
+        },
+        "alt": {
+          "key": "ASTRING",
+          "secret": "ASTRING"
+        }
+      }
+    }
+
+The `treeMap` method is based on the even more powerful `treeCollect` method,
+which is analogous to the `collect` method in Scala collections - it's
+like `treeMap` but takes a partial function:
+
+    scala> user1 treeCollect { case o: JsonObject => o; case j: JsonInteger  => "ANINT" } toPrettyString
+    res15: String = 
+    {
+      "even": "ANINT",
+      "more": {
+        "uninteresting": "ANINT",
+        "stuff": "ANINT"
+      },
+      "and": "ANINT",
+      "profiles": {
+        "mybook": {
+        },
+        "alt": {
+        }
+      }
+    }
+
+Sometimes it's useful to be able to access the path while doing a 
+map or collect operation. For this, we have `pathMap` and `pathCollect`
+methods, where the supplied function takes both the path at which the
+function is being applied, and the JSON value:
+
+    scala> user1.pathMap {
+         |   _ match {
+         |     case (path, js: JsonString) if path.last == "secret" => "xxxxxxxx"
+         |     case (_, json) => json
+         |   }
+         | } toPrettyString
+    res9: String = 
+    {
+      "even": 456,
+      "more": {
+        "uninteresting": 678,
+        "stuff": 999
+      },
+      "type": "user",
+      "and": 123,
+      "profiles": {
+        "mybook": {
+          "key": "AGW45HWH",
+          "secret": "xxxxxxxx"
+        },
+        "alt": {
+          "key": "ER45DFE3",
+          "secret": "xxxxxxxx"
+        }
+      }
+    }
+
+There are also more convenient methods for transforming JSON at known 
+locations in the tree. One is the `replace` method:
+
+    scala> val profiles = / / "profiles"
+    profiles: net.uniscala.json.JsonPath = profiles
+    
+    scala> user1.replace(
+         |   profiles / "mybook" / "secret" -> "asecret",
+         |   profiles / "alt" / "secret" -> "asecret2"
+         | ).toPrettyString
+    res18: String = 
+    {
+      "even": 456,
+      "more": {
+        "uninteresting": 678,
+        "stuff": 999
+      },
+      "type": "user",
+      "and": 123,
+      "profiles": {
+        "mybook": {
+          "key": "AGW45HWH",
+          "secret": "asecret"
+        },
+        "alt": {
+          "key": "ER45DFE3",
+          "secret": "asecret2"
+        }
+      }
+    }
+
+Another is the slightly more general `transform` method, which, instead of 
+replacing values, applies a function:
+
+    def reverse(json: JsonValue[_]): JsonValue[_] = json match {
+      case JsonString(str) => JsonString("REVERSED: " + str.reverse)
+      case json => json
+    }
+    reverse: (json: net.uniscala.json.JsonValue[_])net.uniscala.json.JsonValue[_]
+    
+    scala> user1.transform(
+         |   profiles / "mybook" / "secret" -> reverse,
+         |   profiles / "alt" / "secret" -> reverse
+         | ).toPrettyString
+    res6: String = 
+    {
+      "even": 456,
+      "more": {
+        "uninteresting": 678,
+        "stuff": 999
+      },
+      "type": "user",
+      "and": 123,
+      "profiles": {
+        "mybook": {
+          "key": "AGW45HWH",
+          "secret": "REVERSED: 4k929g9iu34huj4g"
+        },
+        "alt": {
+          "key": "ER45DFE3",
+          "secret": "REVERSED: 86ed9676897680"
+        }
+      }
+    }
 
 
 ## Parsing long JSON texts
@@ -318,39 +540,42 @@ create a customised parser that will read in each row when we request it:
     import net.uniscala.json._
     import scala.annotation.tailrec
     
-    class CouchViewResults(r: Reader) extends JsonParser(r) {
+    class CouchViewResults(r: java.io.Reader, resultsKey: String = "rows") extends JsonParser(r) {
       
       private var atEnd = false
       
       init()
       
       private def init(): Unit = {
-        skipWhitespace
-        consumeChar('{')
+        
         // skip preamble info like "total_rows" etc. (or we could use these!)
         @tailrec def preamble(): Unit = {
           skipWhitespace
-          string match {
-            case "rows" => // return
-            case key => skipKeyValue(key); preamble
+          val key: String = string;
+          if (key != resultsKey) {
+            skipKeyValue
+            preamble
           }
         }
+        
+        skipWhitespace
+        consumeChar('{')
         preamble
         skipWhitespace
         consumeChar(':')
         skipWhitespace
         consumeChar('[')
       }
-    
-      def skipKeyValue(key: String): Unit = {
+      
+      def skipKeyValue(): Unit = {
         skipWhitespace
         consumeChar(':')
-        jvalue
+        val skipped = jvalue
         skipWhitespace
         consumeChar(',')
       }
       
-      def next: Option[JsonObject] = {
+      def nextResult(): Option[JsonObject] = {
         if (atEnd) {
           None
         } else {
