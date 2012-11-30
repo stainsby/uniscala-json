@@ -78,26 +78,5 @@ class JsonPath(val self: List[String]) extends SeqProxy[String] {
     }
   }
   
-  final def treeCollect(
-    jobj: JsonObject,
-    f: PartialFunction[JsonValue[_], JsonValue[_]]
-  ): JsonObject = {
-    JsonObject(
-      jobj flatMap { case (key, subjson) =>
-        val newPairOpt: Option[(String, JsonValue[_])] =
-          f.lift(subjson).map((key, _))
-        // note that if f returns a new value at this key, we don't recurse
-        // down that new value even if it is a JsonObject - I think this is 
-        // the behaviour a user would expect
-        newPairOpt orElse {
-          subjson match {
-            case subobj: JsonObject => Some((key, treeCollect(subobj, f)))
-            case _ => Some((key, subjson))
-          }
-        }
-      }
-    )
-  }
-  
   override def toString() = this mkString ":"
 }
