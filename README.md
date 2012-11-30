@@ -601,10 +601,10 @@ results of a query:
     scala> val s = new CouchViewResults(r)
     s: CouchViewResults = CouchViewResults@654b665d
     
-    scala> s.next
+    scala> s.nextResult
     res1: Option[net.uniscala.json.JsonObject] = Some({"id": "50015430000", "key": [3, 2, 1, 0, 2, 2, 3, 3, 1, 0], "value": [[115.029553, 115.029976], [-34.309662, -34.309455]]})
     
-    scala> s.next
+    scala> s.nextResult
     res2: Option[net.uniscala.json.JsonObject] = Some({"id": "50015530000", "key": [3, 2, 1, 0, 2, 2, 3, 3, 1, 0], "value": [[115.06153, 115.062106], [-34.334516, -34.333426]]})
 
 Note this view is from an statistical data set and results in more than 
