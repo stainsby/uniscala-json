@@ -153,10 +153,7 @@ with MapLike[String, JsonValue[_], JsonObject] {
             val preserved: Boolean = newSubjson eq subjson
             if (preserved) {
               subjson match {
-                case subobj: JsonObject => {
-                  val subpath = path / key
-                  (key, pathCollect_(subpath, subobj, f))
-                }
+                case subobj: JsonObject => (key, pathCollect_(path, subobj, f))
                 case _ => kv
               }
             } else {
