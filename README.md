@@ -334,18 +334,6 @@ method. If the different type is found, `None` is returned:
 
     scala> val jstring = user1.getAt[JsonString](path)
     jstring: Option[net.uniscala.json.JsonString] = None
-    
-As a minor convenience, you can also apply a function at a value at the 
-end of a path and get the result:
-
-    scala> def reverse(json: JsonValue[_]): JsonValue[_] = json match {
-         |   case JsonString(str) => JsonString("REVERSED: " + str.reverse)
-         |   case json => json
-         | }
-    reverse: (json: net.uniscala.json.JsonValue[_])net.uniscala.json.JsonValue[_]
-    
-    scala> user1.applyAt(profiles / "mybook" / "secret", reverse)
-    res7: Option[net.uniscala.json.JsonValue[_]] = Some("REVERSED: 4k929g9iu34huj4g")
 
 Path segments can also be constructed or appended using `/`:
 

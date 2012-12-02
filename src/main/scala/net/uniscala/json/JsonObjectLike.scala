@@ -64,6 +64,12 @@ with MapLike[String, JsonValue[_], JsonObject] {
   def getAt[J <: JsonValue[_] : Manifest](path: JsonPath): Option[J] =
     applyAt[J, J](path, (j) => j)
   
+  protected def applyAt[J <: JsonValue[_] : Manifest, T](
+    path: JsonPath,
+    f: J => T
+  ): Option[T] = 
+    path.at[J, T](this, f)
+  
   def transform(
     changes: Map[JsonPath, JsonValue[_] => JsonValue[_]]
   ): JsonObject = {
@@ -85,11 +91,6 @@ with MapLike[String, JsonValue[_], JsonObject] {
     }
     transform(fnalChanges:_*)
   }
-  
-  def applyAt[J <: JsonValue[_] : Manifest, T](
-    path: JsonPath, f: J => T
-  ): Option[T] = 
-    path.at[J, T](this, f)
   
   def treeMap(f: JsonValue[_] => JsonValue[_]) =
     treeCollect(_ match { case j => f(j) })
