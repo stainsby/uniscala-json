@@ -31,6 +31,9 @@ class JsonPath(val self: List[String]) extends SeqProxy[String] {
   
   def this(segments: String*) = this(List(segments:_*))
   
+  /**
+   * Appends path segments to this path.
+   */
   def /(segments: String*): JsonPath = {
     new JsonPath(self ++ segments)
   }
@@ -45,6 +48,13 @@ class JsonPath(val self: List[String]) extends SeqProxy[String] {
     }
   }
   
+  /**
+   * Applies a function to the value, if any, that this path points to in
+   * the supplied JSON object. If the path is invalid, that is, if it 
+   * doesn't point to a  value, or if the type pointed to is not assignable 
+   * to J, then None is returned. Otherwise the result of applying the 
+   * function is returned, wrapped in Some.
+   */
   def at[J <: JsonValue[_] : Manifest, T](
     jobj: JsonObject,
     f: J=>T

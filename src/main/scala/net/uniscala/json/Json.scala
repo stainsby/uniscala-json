@@ -13,40 +13,103 @@ package net.uniscala.json
 
 object Json {
   
+  /**
+   * An alias for JsonNull.
+   */
   val Jnull = JsonNull
   
+  /**
+   * Creates a JSON array with the specified elements.
+   */
   def apply(values: JsonValue[_]*) = JsonArray(values:_*)
   
+  /**
+   * Creates a JSON array with the supplied list.
+   */
   def apply(values: (String, JsonValue[_])*) = JsonObject(values:_*)
   
+  /**
+   * Implicitly constructs a JSONString from a Scala String. This is 
+   * typically useful when constructing JSON arrays.
+   */
   implicit def implicitJsonValueStringWrap(s: String) = JsonString(s)
   
+  /**
+   * Implicitly constructs a JSONBoolean from a Scala Boolean. This is 
+   * typically useful when constructing JSON arrays.
+   */
   implicit def implicitJsonValueBooleanWrap(b: Boolean) =
     if (b) JsonTrue else JsonFalse
   
+  /**
+   * Implicitly constructs a JsonInteger from a Scala Int. This is 
+   * typically useful when constructing JSON arrays.
+   */
   implicit def implicitJsonValueIntegerWrap(i: Int) = JsonInteger(i)
   
+  /**
+   * Implicitly constructs a JsonInteger from a Scala Long. This is 
+   * typically useful when constructing JSON arrays.
+   */
   implicit def implicitJsonValueLongWrap(l: Long) = JsonInteger(l)
   
+  /**
+   * Implicitly constructs a JSONString from a Scala String. This is 
+   * typically useful when constructing JSON arrays.
+   */
   implicit def implicitJsonValueFloatWrap(f: Float) = JsonFloat(f)
   
+  /**
+   * Implicitly constructs a JSONString from a Scala String. This is 
+   * typically useful when constructing JSON arrays.
+   */
   implicit def implicitJsonValueDoubleWrap(d: Double) = JsonFloat(d)
   
+  /**
+   * Implicitly constructs a String-JSONString pair from a Scala 
+   * String-String pair. This is typically useful when constructing JSON 
+   * objects.
+   */
   implicit def implicitJsonValueStringPairWrap(ss: (String, String)) =
     (ss._1, JsonString(ss._2))
   
+  /**
+   * Implicitly constructs a String-JSONBoolean pair from a Scala 
+   * String-Boolean pair. This is typically useful when constructing JSON 
+   * objects.
+   */
   implicit def implicitJsonValueBooleanPairWrap(sb: (String,  Boolean)) =
     (sb._1, if (sb._2) JsonTrue else JsonFalse)
   
+  /**
+   * Implicitly constructs a String-JSONInteger pair from a Scala 
+   * String-Int pair. This is typically useful when constructing JSON 
+   * objects.
+   */
   implicit def implicitJsonValueIntPairWrap(si: (String,  Int)) =
     (si._1, JsonInteger(si._2))
   
+  /**
+   * Implicitly constructs a String-JSONInteger pair from a Scala 
+   * String-Long pair. This is typically useful when constructing JSON 
+   * objects.
+   */
   implicit def implicitJsonValueLongPairWrap(sl: (String,  Long)) =
     (sl._1, JsonInteger(sl._2))
   
+  /**
+   * Implicitly constructs a String-JSONFloat pair from a Scala 
+   * String-Float pair. This is typically useful when constructing JSON 
+   * objects.
+   */
   implicit def implicitJsonValueFloatPairWrap(sf: (String,  Float)) =
     (sf._1, JsonFloat(sf._2))
   
+  /**
+   * Implicitly constructs a String-JSONFloat pair from a Scala 
+   * String-Double pair. This is typically useful when constructing JSON 
+   * objects.
+   */
   implicit def implicitJsonValueDoublePairWrap(sd: (String,  Double)) =
     (sd._1, JsonFloat(sd._2))
   

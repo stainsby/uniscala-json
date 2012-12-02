@@ -38,6 +38,9 @@ with MapLike[String, JsonValue[_], JsonObject] {
   
   this: JsonObject =>
   
+  /**
+   * The wrapped map that hold the JSON object data.
+   */
   def value: Map[String, JsonValue[_]]
   
   override def get(key: String) = value.get(key)
@@ -61,15 +64,25 @@ with MapLike[String, JsonValue[_], JsonObject] {
   
   override def empty = JsonObject.empty
   
+  /**
+   * Gets the value at a particular path.
+   */
   def getAt[J <: JsonValue[_] : Manifest](path: JsonPath): Option[J] =
     applyAt[J, J](path, (j) => j)
   
+  /**
+   * Applies a function to the value at a particular path.
+   */
   protected def applyAt[J <: JsonValue[_] : Manifest, T](
     path: JsonPath,
     f: J => T
   ): Option[T] = 
     path.at[J, T](this, f)
   
+  /**
+   * Builds a new JsonObject by applying the specified changes. Each change
+   * is specified by the path where it occurs and a function to make the change.
+   */
   def transform(
     changes: Map[JsonPath, JsonValue[_] => JsonValue[_]]
   ): JsonObject = {
@@ -78,23 +91,44 @@ with MapLike[String, JsonValue[_], JsonObject] {
     }
   }
   
+  /**
+   * Builds a new JsonObject by applying the specified changes. Each change
+   * is the path where it occurs and a function to make the change.
+   */
   def transform(
     changes: (JsonPath, JsonValue[_] => JsonValue[_])*
   ): JsonObject =
     transform(Map(changes:_*))
   
+  /**
+   * Builds a new JsonObject by applying the specified replacements.
+   * Each replacement is specified by the path where it occurs and a function
+   * to replace the existing value with.
+   */
   def replace(
-    changes: (JsonPath, JsonValue[_])*
+    replacements: (JsonPath, JsonValue[_])*
   ): JsonObject = {
-    val fnalChanges = changes map { case (path, value) =>
+    val fnalChanges = replacements map { case (path, value) =>
       (path, (j: JsonValue[_]) => value)
     }
     transform(fnalChanges:_*)
   }
   
+  /**
+   * Applies a function over the hierarchy of JSON objects under this object.
+   * The hierarchy ("tree") is is traversed depth-first. The traversal will 
+   * only descend into original sub-objects preserved under the mapping 
+   * function, not into ones we are creating.
+   */
   def treeMap(f: JsonValue[_] => JsonValue[_]) =
     treeCollect(_ match { case j => f(j) })
   
+  /**
+   * Applies a partial function over the hierarchy of JSON objects under 
+   * this object. Only values where the partial function is defined
+   * are included in the resulting tree. In all other respects, the traversal 
+   * behaviour is as described for 'treeMap'.
+   */
   def treeCollect(
     f: PartialFunction[JsonValue[_], JsonValue[_]]
   ): JsonObject = {
@@ -129,9 +163,17 @@ with MapLike[String, JsonValue[_], JsonObject] {
     treeCollect_(this, f)
   }
   
+  /**
+   * The same as 'treeMap' except the path at the current point in the 
+   * tree traversal is also supplied to the map function.
+   */
   def pathMap(f: Function1[(JsonPath, JsonValue[_]), JsonValue[_]]) =
     pathCollect(_ match { case j => f(j) })
   
+  /**
+   * The same as 'treeCollect' except the path at the current point in the 
+   * tree traversal is also supplied to the collect function.
+   */
   def pathCollect(
     f: PartialFunction[(JsonPath, JsonValue[_]), JsonValue[_]]
   ): JsonObject = {
