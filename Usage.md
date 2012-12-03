@@ -310,6 +310,7 @@ allowing us the retrieve that profile like this:
 ```text
 scala> val profile = user1.getAt[JsonObject](path)
 profile: Option[net.uniscala.json.JsonObject] = Some({"key": "AGW45HWH", "secret": "g4juh43ui9g929k4"})
+```
 
 If the path was invalid, we get `None`:
 
@@ -349,7 +350,9 @@ path: net.uniscala.json.JsonPath = one:more:path
 
 ## Tree operations
 
-The are methods to deal with the tree-like nature of JSON. The `treeMap`
+There are also methods to transform entire JSON trees.
+
+The `treeMap`
 methods operates in a similar way to the familiar functional `map`, but 
 traversing the tree structure and applying the map function to the
 values at each key. Continuing to use `user1` declared in 'Paths' above:
