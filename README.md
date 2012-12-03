@@ -74,7 +74,7 @@ testing and similar:
 
 
 [ghproject]: https://github.com/stainsby/uniscala-json "Uniscala JSON on GitHub"
-[ghusage]: http://stainsby.github.com/uniscala-json/Usage.md "Uniscala JSON library - Usage"
+[ghusage]: https://github.com/stainsby/uniscala-json/wiki/Usage "Uniscala JSON library - Usage"
 [json]: http://json.org/ "Introducing JSON"
 [license]: http://www.apache.org/licenses/LICENSE-2.0 "Apache License Version 2.0, January 2004"
 [scaladoc]: http://stainsby.github.com/uniscala-json/scaladocs/index.html "Scaladoc"
