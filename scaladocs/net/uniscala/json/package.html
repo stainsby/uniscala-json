@@ -1,0 +1,324 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html>
+        <head>
+          <title>net.uniscala.json</title>
+          <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+          
+      <link type="text/css" media="screen" rel="stylesheet" href="../../../lib/template.css" />
+      <script type="text/javascript" src="../../../lib/jquery.js"></script>
+      <script type="text/javascript" src="../../../lib/jquery-ui.js"></script>
+      <script type="text/javascript" src="../../../lib/template.js"></script>
+      <script type="text/javascript" src="../../../lib/tools.tooltip.js"></script>
+    
+        </head>
+        <body onload="sh_highlightDocument('../lib/', '.min.js');" class="value">
+      <div id="definition">
+        <img src="../../../lib/package_big.png" />
+        <p id="owner"><a name="net" class="extype" href="../../package.html">net</a>.<a name="net.uniscala" class="extype" href="../package.html">uniscala</a></p>
+        <h1>json</h1>
+      </div>
+
+      <h4 class="signature" id="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">package</span>
+      </span>
+      <span class="symbol">
+        <span class="name">json</span>
+      </span>
+      </h4>
+      
+      <div class="fullcommenttop" id="comment"><div class="comment cmt"><p>Uniscala JSON is a compact JSON library written in Scala. Other
+than the Scala runtime libraries, it has no other dependencies. The library
+is purely for parsing, generating, and transforming JSON. There are no
+data/object mapping or binding features.</p><p>See the documentation on [GitHub].
+</p></div></div>
+    
+
+      <div id="mbrsel">
+        <div id="textfilter"><span class="pre"></span><span class="input"><input accesskey="/" type="text" /></span><span class="post"></span></div>
+        
+        
+        <div id="visbl">
+            <span class="filtertype">Visibility</span>
+            <ol><li class="public in"><span>Public</span></li><li class="all out"><span>All</span></li></ol>
+          </div>
+      </div>
+
+      <div id="template">
+        <div id="allMembers">
+        
+
+        <div class="types members" id="types">
+              <h3>Type Members</h3>
+              <ol><li visbl="pub" name="net.uniscala.json.JsonArray" data-isabs="false">
+      <a id="JsonArray:JsonArray"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">case class</span>
+      </span>
+      <span class="symbol">
+        <a href="JsonArray.html"><span class="name">JsonArray</span></a><span class="params">(<span name="value">value: Vector[net.uniscala.json.JsonValue[_]]</span>)</span><span class="result"> extends JsonTop[Vector[net.uniscala.json.JsonValue[_]]] with JsonArrayLike with Product with Serializable</span>
+      </span>
+      </h4>
+      <p class="comment cmt">Represents the JSON array texts.</p>
+    </li><li visbl="pub" name="net.uniscala.json.JsonBoolean" data-isabs="true">
+      <a id="JsonBoolean:JsonBoolean"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier">sealed abstract </span>
+        <span class="kind">class</span>
+      </span>
+      <span class="symbol">
+        <a href="JsonBoolean.html"><span class="name">JsonBoolean</span></a><span class="result"> extends JsonValue[Boolean]</span>
+      </span>
+      </h4>
+      <p class="comment cmt">Represents either of the two boolean JSON values: JSON
+true and false.</p>
+    </li><li visbl="pub" name="net.uniscala.json.JsonFloat" data-isabs="false">
+      <a id="JsonFloat:JsonFloat"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">case class</span>
+      </span>
+      <span class="symbol">
+        <a href="JsonFloat.html"><span class="name">JsonFloat</span></a><span class="params">(<span name="value">value: Double</span>)</span><span class="result"> extends JsonNumber[Double] with Product with Serializable</span>
+      </span>
+      </h4>
+      <p class="comment cmt">Represents the JSON float values.</p>
+    </li><li visbl="pub" name="net.uniscala.json.JsonFormatException" data-isabs="false">
+      <a id="JsonFormatException:JsonFormatException"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">class</span>
+      </span>
+      <span class="symbol">
+        <a href="JsonFormatException.html"><span class="name">JsonFormatException</span></a><span class="result"> extends RuntimeException</span>
+      </span>
+      </h4>
+      
+    </li><li visbl="pub" name="net.uniscala.json.JsonInteger" data-isabs="false">
+      <a id="JsonInteger:JsonInteger"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">case class</span>
+      </span>
+      <span class="symbol">
+        <a href="JsonInteger.html"><span class="name">JsonInteger</span></a><span class="params">(<span name="value">value: Long</span>)</span><span class="result"> extends JsonNumber[Long] with Product with Serializable</span>
+      </span>
+      </h4>
+      <p class="comment cmt">Represents the JSON integer values.</p>
+    </li><li visbl="pub" name="net.uniscala.json.JsonNumber" data-isabs="true">
+      <a id="JsonNumber:JsonNumber[V]"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier">sealed abstract </span>
+        <span class="kind">class</span>
+      </span>
+      <span class="symbol">
+        <a href="JsonNumber.html"><span class="name">JsonNumber</span></a><span class="tparams">[<span name="V">V &lt;: AnyVal</span>]</span><span class="result"> extends JsonValue[V]</span>
+      </span>
+      </h4>
+      <p class="comment cmt">Represents either of the two numeric JSON values: JSON
+integers and floats.</p>
+    </li><li visbl="pub" name="net.uniscala.json.JsonObject" data-isabs="false">
+      <a id="JsonObject:JsonObject"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">case class</span>
+      </span>
+      <span class="symbol">
+        <a href="JsonObject.html"><span class="name">JsonObject</span></a><span class="params">(<span name="value">value: Map[String, net.uniscala.json.JsonValue[_]]</span>)</span><span class="result"> extends JsonTop[Map[String, net.uniscala.json.JsonValue[_]]] with JsonObjectLike with Product with Serializable</span>
+      </span>
+      </h4>
+      <p class="comment cmt">Represents the JSON object texts.</p>
+    </li><li visbl="pub" name="net.uniscala.json.JsonParser" data-isabs="false">
+      <a id="JsonParser:JsonParser"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">class</span>
+      </span>
+      <span class="symbol">
+        <a href="JsonParser.html"><span class="name">JsonParser</span></a><span class="result"> extends AnyRef</span>
+      </span>
+      </h4>
+      
+    </li><li visbl="pub" name="net.uniscala.json.JsonPath" data-isabs="false">
+      <a id="JsonPath:JsonPath"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">class</span>
+      </span>
+      <span class="symbol">
+        <a href="JsonPath.html"><span class="name">JsonPath</span></a><span class="result"> extends SeqProxy[String]</span>
+      </span>
+      </h4>
+      <p class="comment cmt">A path into a hierarchy of JSON objects specified as a sequence of
+keys.</p>
+    </li><li visbl="pub" name="net.uniscala.json.JsonString" data-isabs="false">
+      <a id="JsonString:JsonString"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">case class</span>
+      </span>
+      <span class="symbol">
+        <a href="JsonString.html"><span class="name">JsonString</span></a><span class="params">(<span name="value">value: String</span>)</span><span class="result"> extends JsonValue[String] with Product with Serializable</span>
+      </span>
+      </h4>
+      <p class="comment cmt">Represents JSON string values.</p>
+    </li><li visbl="pub" name="net.uniscala.json.JsonTop" data-isabs="true">
+      <a id="JsonTop:JsonTop[V]"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier">sealed abstract </span>
+        <span class="kind">class</span>
+      </span>
+      <span class="symbol">
+        <a href="JsonTop.html"><span class="name">JsonTop</span></a><span class="tparams">[<span name="V">V</span>]</span><span class="result"> extends JsonValue[V]</span>
+      </span>
+      </h4>
+      <p class="comment cmt">Represents either of the two top-level JSON texts: JSON
+objects and arrays.</p>
+    </li><li visbl="pub" name="net.uniscala.json.JsonValue" data-isabs="true">
+      <a id="JsonValue:JsonValue[V]"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier">sealed abstract </span>
+        <span class="kind">class</span>
+      </span>
+      <span class="symbol">
+        <a href="JsonValue.html"><span class="name">JsonValue</span></a><span class="tparams">[<span name="V">V</span>]</span><span class="result"> extends Immutable</span>
+      </span>
+      </h4>
+      <p class="comment cmt">The base class for all JSON text or value representations.</p>
+    </li></ol>
+            </div>
+
+        
+
+        <div class="values members" id="values">
+              <h3>Value Members</h3>
+              <ol><li visbl="pub" name="net.uniscala.json.Json" data-isabs="false">
+      <a id="Json:Json"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">object</span>
+      </span>
+      <span class="symbol">
+        <a href="Json$.html"><span class="name">Json</span></a><span class="result"> extends AnyRef</span>
+      </span>
+      </h4>
+      
+    </li><li visbl="pub" name="net.uniscala.json.JsonArray" data-isabs="false">
+      <a id="JsonArray:JsonArray"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">object</span>
+      </span>
+      <span class="symbol">
+        <a href="JsonArray$.html"><span class="name">JsonArray</span></a><span class="result"> extends Serializable</span>
+      </span>
+      </h4>
+      
+    </li><li visbl="pub" name="net.uniscala.json.JsonFalse" data-isabs="false">
+      <a id="JsonFalse:JsonFalse"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">object</span>
+      </span>
+      <span class="symbol">
+        <a href="JsonFalse$.html"><span class="name">JsonFalse</span></a><span class="result"> extends JsonBoolean with Product with Serializable</span>
+      </span>
+      </h4>
+      <p class="comment cmt">Represents the JSON false value.</p>
+    </li><li visbl="pub" name="net.uniscala.json.JsonNull" data-isabs="false">
+      <a id="JsonNull:JsonNull"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">object</span>
+      </span>
+      <span class="symbol">
+        <a href="JsonNull$.html"><span class="name">JsonNull</span></a><span class="result"> extends JsonValue[Null] with Product with Serializable</span>
+      </span>
+      </h4>
+      <p class="comment cmt">Represents the JSON null value.</p>
+    </li><li visbl="pub" name="net.uniscala.json.JsonObject" data-isabs="false">
+      <a id="JsonObject:JsonObject"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">object</span>
+      </span>
+      <span class="symbol">
+        <a href="JsonObject$.html"><span class="name">JsonObject</span></a><span class="result"> extends Serializable</span>
+      </span>
+      </h4>
+      
+    </li><li visbl="pub" name="net.uniscala.json.JsonParser" data-isabs="false">
+      <a id="JsonParser:JsonParser"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">object</span>
+      </span>
+      <span class="symbol">
+        <a href="JsonParser$.html"><span class="name">JsonParser</span></a><span class="result"> extends AnyRef</span>
+      </span>
+      </h4>
+      
+    </li><li visbl="pub" name="net.uniscala.json.JsonPath" data-isabs="false">
+      <a id="JsonPath:JsonPath"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">object</span>
+      </span>
+      <span class="symbol">
+        <a href="JsonPath$.html"><span class="name">JsonPath</span></a><span class="result"> extends AnyRef</span>
+      </span>
+      </h4>
+      
+    </li><li visbl="pub" name="net.uniscala.json.JsonTrue" data-isabs="false">
+      <a id="JsonTrue:JsonTrue"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">object</span>
+      </span>
+      <span class="symbol">
+        <a href="JsonTrue$.html"><span class="name">JsonTrue</span></a><span class="result"> extends JsonBoolean with Product with Serializable</span>
+      </span>
+      </h4>
+      <p class="comment cmt">Represents the JSON true value.</p>
+    </li></ol>
+            </div>
+
+        
+        </div>
+
+        <div id="inheritedMembers">
+        
+        </div>
+
+      </div>
+
+      <div id="tooltip"></div>
+
+      <div id="footer">  </div>
+
+
+    </body>
+      </html>
