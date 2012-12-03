@@ -38,7 +38,7 @@ sealed abstract class JsonValue[V] extends Immutable {
 
 
 /**
- * Represents either of the two top-level JSON texts: JSON
+ * Represents one of the two top-level JSON texts: JSON
  * objects and arrays.
  */
 sealed abstract class JsonTop[V] extends JsonValue[V] {
@@ -47,7 +47,7 @@ sealed abstract class JsonTop[V] extends JsonValue[V] {
 
 
 /**
- * Represents either of the two numeric JSON values: JSON
+ * Represents one of the two numeric JSON values: JSON
  * integers and floats.
  */
 sealed abstract class JsonNumber[V <: AnyVal] extends JsonValue[V] {
@@ -56,10 +56,11 @@ sealed abstract class JsonNumber[V <: AnyVal] extends JsonValue[V] {
 
 
 /**
- * Represents either of the two boolean JSON values: JSON
+ * Represents one of the two boolean JSON values: JSON
  * true and false.
  */
 sealed abstract class JsonBoolean(val value: Boolean) extends JsonValue[Boolean]
+
 
 /**
  * Represents the JSON null value.
@@ -71,7 +72,7 @@ case object JsonNull extends JsonValue[Null] {
 
 
 /**
- * Represents JSON string values.
+ * Represents a JSON string value.
  */
 case class JsonString(value: String) extends JsonValue[String] {
   override lazy val toString = {
@@ -98,13 +99,13 @@ case object JsonTrue extends JsonBoolean(true) {
 
 
 /**
- * Represents the JSON integer values.
+ * Represents a JSON integer value.
  */
 case class JsonInteger(value: Long) extends JsonNumber[Long]
 
 
 /**
- * Represents the JSON float values.
+ * Represents a JSON float value.
  */
 case class JsonFloat(value: Double) extends JsonNumber[Double]
 
@@ -125,7 +126,7 @@ object JsonObject {
 
 
 /**
- * Represents the JSON object texts.
+ * Represents a JSON object.
  * Values are stored as JsonValue instances.
  */
 case class JsonObject(value: Map[String, JsonValue[_]])
@@ -148,7 +149,7 @@ object JsonArray {
 
 
 /**
- * Represents the JSON array texts.
+ * Represents a JSON array.
  * Elements are stored as JsonValue instances.
  */
 case class JsonArray(value: Vector[JsonValue[_]])
