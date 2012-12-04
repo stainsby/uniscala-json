@@ -63,7 +63,7 @@ data/object mapping or binding features.</p><p>See the documentation on [GitHub]
         <a href="JsonArray.html"><span class="name">JsonArray</span></a><span class="params">(<span name="value">value: Vector[net.uniscala.json.JsonValue[_]]</span>)</span><span class="result"> extends JsonTop[Vector[net.uniscala.json.JsonValue[_]]] with JsonArrayLike with Product with Serializable</span>
       </span>
       </h4>
-      <p class="comment cmt">Represents the JSON array texts.</p>
+      <p class="comment cmt">Represents a JSON array.</p>
     </li><li visbl="pub" name="net.uniscala.json.JsonBoolean" data-isabs="true">
       <a id="JsonBoolean:JsonBoolean"></a>
       <h4 class="signature">
@@ -75,7 +75,7 @@ data/object mapping or binding features.</p><p>See the documentation on [GitHub]
         <a href="JsonBoolean.html"><span class="name">JsonBoolean</span></a><span class="result"> extends JsonValue[Boolean]</span>
       </span>
       </h4>
-      <p class="comment cmt">Represents either of the two boolean JSON values: JSON
+      <p class="comment cmt">Represents one of the two boolean JSON values: JSON
 true and false.</p>
     </li><li visbl="pub" name="net.uniscala.json.JsonFloat" data-isabs="false">
       <a id="JsonFloat:JsonFloat"></a>
@@ -88,7 +88,7 @@ true and false.</p>
         <a href="JsonFloat.html"><span class="name">JsonFloat</span></a><span class="params">(<span name="value">value: Double</span>)</span><span class="result"> extends JsonNumber[Double] with Product with Serializable</span>
       </span>
       </h4>
-      <p class="comment cmt">Represents the JSON float values.</p>
+      <p class="comment cmt">Represents a JSON float value.</p>
     </li><li visbl="pub" name="net.uniscala.json.JsonFormatException" data-isabs="false">
       <a id="JsonFormatException:JsonFormatException"></a>
       <h4 class="signature">
@@ -112,7 +112,7 @@ true and false.</p>
         <a href="JsonInteger.html"><span class="name">JsonInteger</span></a><span class="params">(<span name="value">value: Long</span>)</span><span class="result"> extends JsonNumber[Long] with Product with Serializable</span>
       </span>
       </h4>
-      <p class="comment cmt">Represents the JSON integer values.</p>
+      <p class="comment cmt">Represents a JSON integer value.</p>
     </li><li visbl="pub" name="net.uniscala.json.JsonNumber" data-isabs="true">
       <a id="JsonNumber:JsonNumber[V]"></a>
       <h4 class="signature">
@@ -124,7 +124,7 @@ true and false.</p>
         <a href="JsonNumber.html"><span class="name">JsonNumber</span></a><span class="tparams">[<span name="V">V &lt;: AnyVal</span>]</span><span class="result"> extends JsonValue[V]</span>
       </span>
       </h4>
-      <p class="comment cmt">Represents either of the two numeric JSON values: JSON
+      <p class="comment cmt">Represents one of the two numeric JSON values: JSON
 integers and floats.</p>
     </li><li visbl="pub" name="net.uniscala.json.JsonObject" data-isabs="false">
       <a id="JsonObject:JsonObject"></a>
@@ -137,7 +137,7 @@ integers and floats.</p>
         <a href="JsonObject.html"><span class="name">JsonObject</span></a><span class="params">(<span name="value">value: Map[String, net.uniscala.json.JsonValue[_]]</span>)</span><span class="result"> extends JsonTop[Map[String, net.uniscala.json.JsonValue[_]]] with JsonObjectLike with Product with Serializable</span>
       </span>
       </h4>
-      <p class="comment cmt">Represents the JSON object texts.</p>
+      <p class="comment cmt">Represents a JSON object.</p>
     </li><li visbl="pub" name="net.uniscala.json.JsonParser" data-isabs="false">
       <a id="JsonParser:JsonParser"></a>
       <h4 class="signature">
@@ -174,7 +174,7 @@ keys.</p>
         <a href="JsonString.html"><span class="name">JsonString</span></a><span class="params">(<span name="value">value: String</span>)</span><span class="result"> extends JsonValue[String] with Product with Serializable</span>
       </span>
       </h4>
-      <p class="comment cmt">Represents JSON string values.</p>
+      <p class="comment cmt">Represents a JSON string value.</p>
     </li><li visbl="pub" name="net.uniscala.json.JsonTop" data-isabs="true">
       <a id="JsonTop:JsonTop[V]"></a>
       <h4 class="signature">
@@ -186,7 +186,7 @@ keys.</p>
         <a href="JsonTop.html"><span class="name">JsonTop</span></a><span class="tparams">[<span name="V">V</span>]</span><span class="result"> extends JsonValue[V]</span>
       </span>
       </h4>
-      <p class="comment cmt">Represents either of the two top-level JSON texts: JSON
+      <p class="comment cmt">Represents one of the two top-level JSON texts: JSON
 objects and arrays.</p>
     </li><li visbl="pub" name="net.uniscala.json.JsonValue" data-isabs="true">
       <a id="JsonValue:JsonValue[V]"></a>
