@@ -79,6 +79,8 @@ case class JsonString(value: String) extends JsonValue[String] {
     (new StringBuilder).append("\"").append(Json.encode(value.toString)).
       append("\"").toString
   }
+  override lazy val toCompactString = toString
+  override lazy val toPrettyString = toString
 }
 
 
