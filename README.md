@@ -53,6 +53,17 @@ See the [Usage][ghusage] document.
 See the [scaladoc].
 
 
+## Maven
+
+Uniscala JSON release are available in the Maven repositories:
+
+    <dependency>
+      <groupId>net.uniscala</groupId>
+      <artifactId>uniscala-json</artifactId>
+      <version>0.2</version>
+    </dependency>
+
+
 ## Project
 
 Uniscala JSON is currently hosted on [GitHub][ghproject].
