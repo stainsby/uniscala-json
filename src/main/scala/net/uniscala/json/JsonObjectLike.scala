@@ -71,6 +71,12 @@ with MapLike[String, JsonValue[_], JsonObject] {
     applyAt[J, J](path, (j) => j)
   
   /**
+   * Gets the value at a particular path.
+   */
+  def getAt[J <: JsonValue[_] : Manifest](path: String*): Option[J] =
+    getAt[J](new JsonPath(path:_*))
+  
+  /**
    * Applies a function to the value at a particular path.
    */
   protected def applyAt[J <: JsonValue[_] : Manifest, T](
