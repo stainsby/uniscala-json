@@ -42,4 +42,6 @@ build.log
 
 # SJS added
 .cache
+TODO.txt
+env
 

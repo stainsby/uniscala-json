@@ -4,9 +4,39 @@ organization := "net.uniscala"
 
 version := "0.3-SNAPSHOT"
 
-scalaVersion := "2.10.0"
+description := "A compact JSON library written in Scala."
 
-crossScalaVersions := "2.9.2" :: "2.10.0" :: Nil
+startYear := Some(2012)
+
+homepage := Some(url("https://github.com/stainsby/uniscala-json"))
+
+organizationName := "Sustainable Software Pty Ltd"
+
+organizationHomepage := Some(url("http://www.sustainablesoftware.com.au/"))
+
+licenses := Seq(
+  ("The Apache Software License, Version 2.0" ->
+    url("http://www.apache.org/licenses/LICENSE-2.0.txt"))
+)
+
+scmInfo := Some(
+  ScmInfo(
+    url("https://github.com/stainsby/uniscala-json"),
+    "git@github.com:stainsby/uniscala-json.git"
+  )
+)
+
+pomExtra := (
+  <developers>
+    <developer>
+      <id>stainsby</id>
+      <name>Sam Stainsby</name>
+      <email>sam@sustainablesoftware.com.au</email>
+    </developer>
+  </developers>
+)
+
+scalaVersion := "2.10.0"
 
 scalacOptions <<= scalaVersion map { v: String =>
   val default = "-deprecation" :: "-unchecked" :: Nil
@@ -14,8 +44,14 @@ scalacOptions <<= scalaVersion map { v: String =>
     default ++ ("-feature" :: "-language:implicitConversions" :: Nil)
 }
 
+crossScalaVersions := "2.9.2" :: "2.10.0" :: Nil
+
 libraryDependencies ++= Seq("org.specs2" %% "specs2" % "1.12.3" % "test")
 
 resolvers += "Local Maven Repository" at "file://"+Path.userHome.absolutePath+"/.m2/repository"
 
 publishTo := Some(Resolver.file("file",  new File(Path.userHome.absolutePath+"/.m2/repository")))
+
+publishMavenStyle := true
+
+publishArtifact in Test := false
