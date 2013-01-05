@@ -441,7 +441,7 @@ class JsonParserSpec extends Specification {
       case JsonNull => // JsonNull.value == null
     }
     
-    def matchNumber(num: JsonNumber[_]) = num match {
+    def matchNumber(num: JsonNumber[_ <: AnyVal]) = num match {
       case int: JsonInteger=> val i: Long = int.value
       case flo: JsonFloat => val f: Double = flo.value
     }

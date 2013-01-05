@@ -250,7 +250,7 @@ class JsonObjectSpec extends Specification {
   "the path collect operation" should {
     
     "always collect an empty object to an empty object" in {
-      JsonObject() pathCollect { case pj: JsonValue[_] =>
+      JsonObject() pathCollect { case (p, j) =>
         JsonString("NEVER")
       } must beEqualTo(JsonObject())
     }
