@@ -59,7 +59,7 @@ See the [scaladoc].
 
 ## Including the library in your project
 
-Uniscala JSON release are available in the mainstream repositories. Depending
+Uniscala JSON releases are available in the mainstream repositories. Depending
 on your Scala version, use:
 
     <dependency>
