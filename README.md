@@ -1,5 +1,9 @@
 # README - Uniscala JSON library
 
+## NEW!
+
+Scala 2.10.0 is now supported.
+
 ## About
 
 Uniscala JSON is a compact JSON library written in Scala. Other 
@@ -16,7 +20,7 @@ Scala longs and doubles. **Thus, this library may not be suitable for
 applications requiring more digits or accuracy than the Scala Long and 
 Double types supply.**
 
-The library has been tested under Scala 2.9.2:
+The library has been tested under Scala 2.9.2 and 2.10.0:
 
     > test
     ...
@@ -53,15 +57,30 @@ See the [Usage][ghusage] document.
 See the [scaladoc].
 
 
-## Maven
+## Including the library in your project
 
-Uniscala JSON release are available in the Maven repositories:
+Uniscala JSON release are available in the mainstream repositories. Depending
+on your Scala version, use:
 
     <dependency>
       <groupId>net.uniscala</groupId>
-      <artifactId>uniscala-json</artifactId>
-      <version>0.2</version>
+      <artifactId>uniscala-json_2.9.2</artifactId>
+      <version>0.3</version>
     </dependency>
+  
+or
+
+    <dependency>
+      <groupId>net.uniscala</groupId>
+      <artifactId>uniscala-json_2.10</artifactId>
+      <version>0.3</version>
+    </dependency>
+
+in your `pom.xml`, or using SBT, in your `build.sbt`:
+
+    "net.uniscala" %% "uniscala-json" % "0.3"
+    
+There are builds available for Scala versions 2.9.2 and 2.10.0.
 
 
 ## Project
