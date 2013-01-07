@@ -83,24 +83,10 @@ in your `pom.xml`, or using SBT, in your `build.sbt`:
 There are builds available for Scala versions 2.9.2 and 2.10.0.
 
 
-## Project
+## Building
 
-Uniscala JSON is currently hosted on [GitHub][ghproject].
-
-The project is built using fairly standard Maven. However, there is also 
-an SBT shim that depends on the `pom.xml` which allows SBT to be run for 
-testing and similar:
-
-    $ sbt console
-    ...
-    scala> import net.uniscala.json._
-    import net.uniscala.json._
-    
-    scala> def feed = scala.io.Source.fromURL("https://api.twitter.com/1/statuses/user_timeline.json?include_entities=true&include_rts=true&screen_name=stainsby&count=2").reader
-    feed: java.io.InputStreamReader
-    
-    scala> JsonParser.parseTop(feed).toPrettyString
-    res0: String = ...
+As of version 0.3, Uniscala JSON is built in a fairly standard way using 
+SBT. In previous versions, we used Maven.
 
 
 [ghproject]: https://github.com/stainsby/uniscala-json "Uniscala JSON on GitHub"
