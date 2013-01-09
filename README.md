@@ -1,8 +1,5 @@
 # README - Uniscala JSON library
 
-## NEW!
-
-Scala 2.10.0 is now supported.
 
 ## About
 
@@ -24,14 +21,13 @@ The library has been tested under Scala 2.9.2 and 2.10.0:
 
     > test
     ...
-    [info] Passed: : Total 2039, Failed 0, Errors 0, Passed 2039, Skipped 0
+    [info] Passed: : Total 2055, Failed 0, Errors 0, Passed 2055, Skipped 0
     
 
 ## License
 
 Copyright 2012 Sustainable Software Pty Ltd.
-Licensed under the Apache License, Version 2.0 (the "License");
-you may not use this file except in compliance with the License.
+Licensed under the Apache License, Version 2.0 (the "License").
 You may obtain a copy of the License at
 [http://www.apache.org/licenses/LICENSE-2.0][license].
 Unless required by applicable law or agreed to in writing, software
@@ -47,14 +43,14 @@ Uniscala JSON is managed and developed by Sam Stainsby at
 [Sustainable Software Pty Ltd][ss]
 
 
-## Usage
-
-See the [Usage][ghusage] document.
-
-
 ## API documentation
 
 See the [scaladoc].
+
+
+## Usage
+
+See the [Usage][ghusage] document.
 
 
 ## Including the library in your project
