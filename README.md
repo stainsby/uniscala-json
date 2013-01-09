@@ -94,4 +94,4 @@ SBT. In previous versions, we used Maven.
 [json]: http://json.org/ "Introducing JSON"
 [license]: http://www.apache.org/licenses/LICENSE-2.0 "Apache License Version 2.0, January 2004"
 [scaladoc]: http://stainsby.github.com/uniscala-json/scaladocs/index.html "Scaladoc"
-[ss]: http://sustainablesoftware.com.au/ "Sustainable Software Pty Ltd"
+[ss]: http://www.sustainablesoftware.com.au/ "Sustainable Software Pty Ltd"
