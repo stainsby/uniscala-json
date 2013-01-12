@@ -43,14 +43,14 @@ Uniscala JSON is managed and developed by Sam Stainsby at
 [Sustainable Software Pty Ltd][ss]
 
 
-## API documentation
-
-See the [scaladoc].
-
-
 ## Usage
 
 See the [Usage][ghusage] document.
+
+
+## API documentation
+
+See the [scaladoc].
 
 
 ## Including the library in your project
@@ -89,5 +89,5 @@ SBT. In previous versions, we used Maven.
 [ghusage]: https://github.com/stainsby/uniscala-json/wiki/Usage "Uniscala JSON library - Usage"
 [json]: http://json.org/ "Introducing JSON"
 [license]: http://www.apache.org/licenses/LICENSE-2.0 "Apache License Version 2.0, January 2004"
-[scaladoc]: http://stainsby.github.com/uniscala-json/scaladocs/index.html "Scaladoc"
+[scaladoc]: https://github.com/stainsby/uniscala-json/blob/master/Usage.md "Scaladoc"
 [ss]: http://www.sustainablesoftware.com.au/ "Sustainable Software Pty Ltd"
