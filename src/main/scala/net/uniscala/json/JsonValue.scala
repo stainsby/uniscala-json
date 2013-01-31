@@ -75,6 +75,7 @@ case object JsonNull extends JsonValue[Null] {
  * Represents a JSON string value.
  */
 case class JsonString(value: String) extends JsonValue[String] {
+  assert(value != null, "null value not permitted")
   override lazy val toString = {
     (new StringBuilder).append("\"").append(Json.encode(value.toString)).
       append("\"").toString
@@ -132,7 +133,9 @@ object JsonObject {
  * Values are stored as JsonValue instances.
  */
 case class JsonObject(value: Map[String, JsonValue[_]])
-extends JsonTop[Map[String, JsonValue[_]]] with JsonObjectLike
+extends JsonTop[Map[String, JsonValue[_]]] with JsonObjectLike {
+  assert(value != null, "null value not permitted")
+}
 
 
 // JSON arrays
@@ -155,4 +158,6 @@ object JsonArray {
  * Elements are stored as JsonValue instances.
  */
 case class JsonArray(value: Vector[JsonValue[_]])
-extends JsonTop[Vector[JsonValue[_]]] with JsonArrayLike
+extends JsonTop[Vector[JsonValue[_]]] with JsonArrayLike {
+  assert(value != null, "null value not permitted")
+}
