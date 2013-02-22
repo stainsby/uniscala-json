@@ -135,6 +135,12 @@ object JsonObject {
 case class JsonObject(value: Map[String, JsonValue[_]])
 extends JsonTop[Map[String, JsonValue[_]]] with JsonObjectLike {
   assert(value != null, "null value not permitted")
+  value.foreach {
+    case (n, v) => {
+      assert(n != null, "null key not permitted")
+      assert(v != null, "null value not permitted")
+    }
+  }
 }
 
 
@@ -160,4 +166,5 @@ object JsonArray {
 case class JsonArray(value: Vector[JsonValue[_]])
 extends JsonTop[Vector[JsonValue[_]]] with JsonArrayLike {
   assert(value != null, "null value not permitted")
+  value.foreach { elem => assert(elem != null, "null element not permitted") }
 }
