@@ -65,16 +65,64 @@ with MapLike[String, JsonValue[_], JsonObject] {
   override def empty = JsonObject.empty
   
   /**
-   * Gets the value at a particular path.
+   * Gets a value of type J, if present, at a particular path.
    */
   def getAt[J <: JsonValue[_] : Manifest](path: JsonPath): Option[J] =
     applyAt[J, J](path, (j) => j)
   
   /**
-   * Gets the value at a particular path.
+   * Gets a value of type J, if present, at a particular path.
    */
   def getAt[J <: JsonValue[_] : Manifest](path: String*): Option[J] =
     getAt[J](new JsonPath(path:_*))
+  
+  /**
+   * Gets an (unwrapped) String, if present, at a particular path.
+   */
+  def getString(path: JsonPath): Option[String] =
+    getAt[JsonString](path).map(_.value)
+  
+  /**
+   * Gets an (unwrapped) String, if present, at a particular path.
+   */
+  def getString(path: String*): Option[String] =
+    getAt[JsonString](path:_*).map(_.value)
+  
+  /**
+   * Gets an (unwrapped) Boolean, if present, at a particular path.
+   */
+  def getBoolean(path: JsonPath): Option[Boolean] =
+    getAt[JsonBoolean](path).map(_.value)
+  
+  /**
+   * Gets an (unwrapped) String, if present, at a particular path.
+   */
+  def getBoolean(path: String*): Option[Boolean] =
+    getAt[JsonBoolean](path:_*).map(_.value)
+  
+  /**
+   * Gets an (unwrapped) Long, if present, at a particular path.
+   */
+  def getLong(path: JsonPath): Option[Long] =
+    getAt[JsonInteger](path).map(_.value)
+  
+  /**
+   * Gets an (unwrapped) Long, if present, at a particular path.
+   */
+  def getLong(path: String*): Option[Long] =
+    getAt[JsonInteger](path:_*).map(_.value)
+  
+  /**
+   * Gets an (unwrapped) Double, if present, at a particular path.
+   */
+  def getDouble(path: JsonPath): Option[Double] =
+    getAt[JsonFloat](path).map(_.value)
+  
+  /**
+   * Gets an (unwrapped) Double, if present, at a particular path.
+   */
+  def getDouble(path: String*): Option[Double] =
+    getAt[JsonFloat](path:_*).map(_.value)
   
   /**
    * Applies a function to the value at a particular path.
