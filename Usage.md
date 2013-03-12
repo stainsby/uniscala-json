@@ -245,32 +245,12 @@ scala> Json(1, 2, 3) ++ Json("a", "b", "c")
 res29: net.uniscala.json.JsonArray = [1, 2, 3, "a", "b", "c"]
 ```
 
-The is a minor inconvenience though. The `+` and `++` operations for 
-`JsonObject`, despite returning a `JsonObject` instance, have a return 
-type of `Map`, due to their inherited method signatures:
+JSON objects can have their elements added to or overridden like this:
 
 ```text
-scala> val jobj2 = jobj + ("x" -> JsonInteger(1223))
-jobj2: scala.collection.immutable.Map[String,net.uniscala.json.JsonValue[_]] = {"x": 1223, "y": "parrot"}
-
-scala> Json("x" -> 123) ++ Json("y" -> 99, "x" -> "cc")
-res27: scala.collection.immutable.Map[String,net.uniscala.json.JsonValue[_]] = {"x": "cc", "y": 99}
+scala> val jobj2: JsonObject = jobj ++ Json("x" -> 1223, "z" -> true)
+jobj2: net.uniscala.json.JsonObject = {"x": 1223, "y": "parrot", "z": true}
 ```
-
-Since this could lead to more verbose handling code, or dangerous casting,
-we supply a type-preserving `:+` operation:
-
-```text
-scala>  val jobj2 = jobj :+ ("x" -> 1223)
-jobj2: net.uniscala.json.JsonObject = {"x": 1223, "y": "parrot"}
-
-scala> val jobj2 = jobj :+ ("x" -> 1223, "z" -> "lizard")
-jobj2: net.uniscala.json.JsonObject = {"x": 1223, "y": "parrot", "z": "lizard"}
-```
-
-Like `+` and `++`, this operation adds or overrides values corresponding to 
-the keys at the highest level only. It doesn't recurse through any objects 
-that the keys point to.
 
 So far we've covered basic collection-based operations. For more transformation
 techniques, continue on the 'Paths' and  'Tree operations' below.
@@ -302,7 +282,7 @@ user1: net.uniscala.json.JsonObject = {"even": 456, "more": ...
 we can specify the path to the `"mybook"` profile thus:
 
 ```text
-scala> val path = new JsonPath("profiles", "mybook")
+scala> val path = JsonPath("profiles", "mybook")
 ```
 
 allowing us the retrieve that profile like this:
@@ -315,7 +295,7 @@ profile: Option[net.uniscala.json.JsonObject] = Some({"key": "AGW45HWH", "secret
 If the path was invalid, we get `None`:
 
 ```text
-scala> val x = user1.getAt[JsonObject](new JsonPath("no", "such", "thing"))
+scala> val x = user1.getAt[JsonObject](JsonPath("no", "such", "thing"))
 x: Option[net.uniscala.json.JsonObject] = None
 ```
 
@@ -325,6 +305,27 @@ method. If the different type is found, `None` is returned:
 ```text
 scala> val jstring = user1.getAt[JsonString](path)
 jstring: Option[net.uniscala.json.JsonString] = None
+```
+
+For convenience, it is also possible to specify the path using string segments
+as method parameters:
+
+```
+  user1.getAt[JsonBoolean]("some", "path", "to", "here")
+```
+
+As of version 0.4, there are also convenience methods that may be used
+to more easily retrieve unwrapped values from a JsonObject:
+
+```
+  getString(path: JsonPath): Option[String]
+  getString(path: String*): Option[String]
+  getBoolean(path: JsonPath): Option[Boolean]
+  getBoolean(path: String*): Option[Boolean]
+  getLong(path: JsonPath): Option[Long]
+  getLong(path: String*): Option[Long]
+  getFloat(path: JsonPath): Option[Float]
+  getFloat(path: String*): Option[Float]
 ```
 
 Path segments can also be constructed or appended using `/`:
