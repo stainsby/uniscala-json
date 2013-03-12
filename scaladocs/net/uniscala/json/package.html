@@ -197,15 +197,15 @@ integers and floats.</p>
       </h4>
       
     </li><li name="net.uniscala.json.JsonPath" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="JsonPathextendsSeqProxy[String]"></a>
+      <a id="JsonPathextendsSeqProxy[String]withProductwithSerializable"></a>
       <a id="JsonPath:JsonPath"></a>
       <h4 class="signature">
       <span class="modifier_kind">
         <span class="modifier"></span>
-        <span class="kind">class</span>
+        <span class="kind">case class</span>
       </span>
       <span class="symbol">
-        <a href="JsonPath.html"><span class="name">JsonPath</span></a><span class="result"> extends <span class="extype" name="scala.collection.SeqProxy">SeqProxy</span>[<span class="extype" name="scala.Predef.String">String</span>]</span>
+        <a href="JsonPath.html"><span class="name">JsonPath</span></a><span class="params">(<span name="segments">segments: <span class="extype" name="scala.Predef.String">String</span>*</span>)</span><span class="result"> extends <span class="extype" name="scala.collection.SeqProxy">SeqProxy</span>[<span class="extype" name="scala.Predef.String">String</span>] with <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
       </span>
       </h4>
       <p class="comment cmt">A path into a hierarchy of JSON objects specified as a sequence of
@@ -344,7 +344,7 @@ objects and arrays.</p>
         <span class="kind">object</span>
       </span>
       <span class="symbol">
-        <a href="JsonPath$.html"><span class="name">JsonPath</span></a>
+        <a href="JsonPath$.html"><span class="name">JsonPath</span></a><span class="result"> extends <span class="extype" name="scala.Serializable">Serializable</span></span>
       </span>
       </h4>
       

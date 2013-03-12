@@ -1005,7 +1005,7 @@ Values are stored as JsonValue instances.
         <span class="name">getAt</span><span class="tparams">[<span name="J">J &lt;: <a href="JsonValue.html" class="extype" name="net.uniscala.json.JsonValue">JsonValue</a>[_]</span>]</span><span class="params">(<span name="path">path: <span class="extype" name="scala.Predef.String">String</span>*</span>)</span><span class="params">(<span class="implicit">implicit </span><span name="arg0">arg0: <span class="extype" name="scala.Predef.Manifest">Manifest</span>[<span class="extype" name="net.uniscala.json.JsonObjectLike.getAt.J">J</span>]</span>)</span><span class="result">: <span class="extype" name="scala.Option">Option</span>[<span class="extype" name="net.uniscala.json.JsonObjectLike.getAt.J">J</span>]</span>
       </span>
       </h4>
-      <p class="shortcomment cmt">Gets the value at a particular path.</p><div class="fullcomment"><div class="comment cmt"><p>Gets the value at a particular path.
+      <p class="shortcomment cmt">Gets a value of type J, if present, at a particular path.</p><div class="fullcomment"><div class="comment cmt"><p>Gets a value of type J, if present, at a particular path.
 </p></div><dl class="attributes block"> <dt>Definition Classes</dt><dd>JsonObjectLike</dd></dl></div>
     </li><li name="net.uniscala.json.JsonObjectLike#getAt" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getAt[J&lt;:net.uniscala.json.JsonValue[_]](path:net.uniscala.json.JsonPath)(implicitevidence$1:Manifest[J]):Option[J]"></a>
@@ -1019,7 +1019,35 @@ Values are stored as JsonValue instances.
         <span class="name">getAt</span><span class="tparams">[<span name="J">J &lt;: <a href="JsonValue.html" class="extype" name="net.uniscala.json.JsonValue">JsonValue</a>[_]</span>]</span><span class="params">(<span name="path">path: <a href="JsonPath.html" class="extype" name="net.uniscala.json.JsonPath">JsonPath</a></span>)</span><span class="params">(<span class="implicit">implicit </span><span name="arg0">arg0: <span class="extype" name="scala.Predef.Manifest">Manifest</span>[<span class="extype" name="net.uniscala.json.JsonObjectLike.getAt.J">J</span>]</span>)</span><span class="result">: <span class="extype" name="scala.Option">Option</span>[<span class="extype" name="net.uniscala.json.JsonObjectLike.getAt.J">J</span>]</span>
       </span>
       </h4>
-      <p class="shortcomment cmt">Gets the value at a particular path.</p><div class="fullcomment"><div class="comment cmt"><p>Gets the value at a particular path.
+      <p class="shortcomment cmt">Gets a value of type J, if present, at a particular path.</p><div class="fullcomment"><div class="comment cmt"><p>Gets a value of type J, if present, at a particular path.
+</p></div><dl class="attributes block"> <dt>Definition Classes</dt><dd>JsonObjectLike</dd></dl></div>
+    </li><li name="net.uniscala.json.JsonObjectLike#getBoolean" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="getBoolean(path:String*):Option[Boolean]"></a>
+      <a id="getBoolean(String*):Option[Boolean]"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">getBoolean</span><span class="params">(<span name="path">path: <span class="extype" name="scala.Predef.String">String</span>*</span>)</span><span class="result">: <span class="extype" name="scala.Option">Option</span>[<span class="extype" name="scala.Boolean">Boolean</span>]</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Gets an (unwrapped) String, if present, at a particular path.</p><div class="fullcomment"><div class="comment cmt"><p>Gets an (unwrapped) String, if present, at a particular path.
+</p></div><dl class="attributes block"> <dt>Definition Classes</dt><dd>JsonObjectLike</dd></dl></div>
+    </li><li name="net.uniscala.json.JsonObjectLike#getBoolean" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="getBoolean(path:net.uniscala.json.JsonPath):Option[Boolean]"></a>
+      <a id="getBoolean(JsonPath):Option[Boolean]"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">getBoolean</span><span class="params">(<span name="path">path: <a href="JsonPath.html" class="extype" name="net.uniscala.json.JsonPath">JsonPath</a></span>)</span><span class="result">: <span class="extype" name="scala.Option">Option</span>[<span class="extype" name="scala.Boolean">Boolean</span>]</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Gets an (unwrapped) Boolean, if present, at a particular path.</p><div class="fullcomment"><div class="comment cmt"><p>Gets an (unwrapped) Boolean, if present, at a particular path.
 </p></div><dl class="attributes block"> <dt>Definition Classes</dt><dd>JsonObjectLike</dd></dl></div>
     </li><li name="scala.AnyRef#getClass" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getClass():Class[_]"></a>
@@ -1034,6 +1062,62 @@ Values are stored as JsonValue instances.
       </span>
       </h4>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
+    </li><li name="net.uniscala.json.JsonObjectLike#getDouble" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="getDouble(path:String*):Option[Double]"></a>
+      <a id="getDouble(String*):Option[Double]"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">getDouble</span><span class="params">(<span name="path">path: <span class="extype" name="scala.Predef.String">String</span>*</span>)</span><span class="result">: <span class="extype" name="scala.Option">Option</span>[<span class="extype" name="scala.Double">Double</span>]</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Gets an (unwrapped) Double, if present, at a particular path.</p><div class="fullcomment"><div class="comment cmt"><p>Gets an (unwrapped) Double, if present, at a particular path.
+</p></div><dl class="attributes block"> <dt>Definition Classes</dt><dd>JsonObjectLike</dd></dl></div>
+    </li><li name="net.uniscala.json.JsonObjectLike#getDouble" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="getDouble(path:net.uniscala.json.JsonPath):Option[Double]"></a>
+      <a id="getDouble(JsonPath):Option[Double]"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">getDouble</span><span class="params">(<span name="path">path: <a href="JsonPath.html" class="extype" name="net.uniscala.json.JsonPath">JsonPath</a></span>)</span><span class="result">: <span class="extype" name="scala.Option">Option</span>[<span class="extype" name="scala.Double">Double</span>]</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Gets an (unwrapped) Double, if present, at a particular path.</p><div class="fullcomment"><div class="comment cmt"><p>Gets an (unwrapped) Double, if present, at a particular path.
+</p></div><dl class="attributes block"> <dt>Definition Classes</dt><dd>JsonObjectLike</dd></dl></div>
+    </li><li name="net.uniscala.json.JsonObjectLike#getLong" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="getLong(path:String*):Option[Long]"></a>
+      <a id="getLong(String*):Option[Long]"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">getLong</span><span class="params">(<span name="path">path: <span class="extype" name="scala.Predef.String">String</span>*</span>)</span><span class="result">: <span class="extype" name="scala.Option">Option</span>[<span class="extype" name="scala.Long">Long</span>]</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Gets an (unwrapped) Long, if present, at a particular path.</p><div class="fullcomment"><div class="comment cmt"><p>Gets an (unwrapped) Long, if present, at a particular path.
+</p></div><dl class="attributes block"> <dt>Definition Classes</dt><dd>JsonObjectLike</dd></dl></div>
+    </li><li name="net.uniscala.json.JsonObjectLike#getLong" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="getLong(path:net.uniscala.json.JsonPath):Option[Long]"></a>
+      <a id="getLong(JsonPath):Option[Long]"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">getLong</span><span class="params">(<span name="path">path: <a href="JsonPath.html" class="extype" name="net.uniscala.json.JsonPath">JsonPath</a></span>)</span><span class="result">: <span class="extype" name="scala.Option">Option</span>[<span class="extype" name="scala.Long">Long</span>]</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Gets an (unwrapped) Long, if present, at a particular path.</p><div class="fullcomment"><div class="comment cmt"><p>Gets an (unwrapped) Long, if present, at a particular path.
+</p></div><dl class="attributes block"> <dt>Definition Classes</dt><dd>JsonObjectLike</dd></dl></div>
     </li><li name="scala.collection.MapLike#getOrElse" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="getOrElse[B1&gt;:B](key:A,default:=&gt;B1):B1"></a>
       <a id="getOrElse[B1&gt;:JsonValue[_]](String,⇒B1):B1"></a>
@@ -1047,6 +1131,34 @@ Values are stored as JsonValue instances.
       </span>
       </h4>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>MapLike → GenMapLike</dd></dl></div>
+    </li><li name="net.uniscala.json.JsonObjectLike#getString" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="getString(path:String*):Option[String]"></a>
+      <a id="getString(String*):Option[String]"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">getString</span><span class="params">(<span name="path">path: <span class="extype" name="scala.Predef.String">String</span>*</span>)</span><span class="result">: <span class="extype" name="scala.Option">Option</span>[<span class="extype" name="scala.Predef.String">String</span>]</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Gets an (unwrapped) String, if present, at a particular path.</p><div class="fullcomment"><div class="comment cmt"><p>Gets an (unwrapped) String, if present, at a particular path.
+</p></div><dl class="attributes block"> <dt>Definition Classes</dt><dd>JsonObjectLike</dd></dl></div>
+    </li><li name="net.uniscala.json.JsonObjectLike#getString" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="getString(path:net.uniscala.json.JsonPath):Option[String]"></a>
+      <a id="getString(JsonPath):Option[String]"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">getString</span><span class="params">(<span name="path">path: <a href="JsonPath.html" class="extype" name="net.uniscala.json.JsonPath">JsonPath</a></span>)</span><span class="result">: <span class="extype" name="scala.Option">Option</span>[<span class="extype" name="scala.Predef.String">String</span>]</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Gets an (unwrapped) String, if present, at a particular path.</p><div class="fullcomment"><div class="comment cmt"><p>Gets an (unwrapped) String, if present, at a particular path.
+</p></div><dl class="attributes block"> <dt>Definition Classes</dt><dd>JsonObjectLike</dd></dl></div>
     </li><li name="scala.collection.TraversableLike#groupBy" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="groupBy[K](f:A=&gt;K):scala.collection.immutable.Map[K,Repr]"></a>
       <a id="groupBy[K](((String,JsonValue[_]))⇒K):Map[K,JsonObject]"></a>

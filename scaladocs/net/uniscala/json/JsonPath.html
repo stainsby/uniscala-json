@@ -37,10 +37,10 @@
       <h4 id="signature" class="signature">
       <span class="modifier_kind">
         <span class="modifier"></span>
-        <span class="kind">class</span>
+        <span class="kind">case class</span>
       </span>
       <span class="symbol">
-        <span class="name">JsonPath</span><span class="result"> extends <span class="extype" name="scala.collection.SeqProxy">SeqProxy</span>[<span class="extype" name="scala.Predef.String">String</span>]</span>
+        <span class="name">JsonPath</span><span class="params">(<span name="segments">segments: <span class="extype" name="scala.Predef.String">String</span>*</span>)</span><span class="result"> extends <span class="extype" name="scala.collection.SeqProxy">SeqProxy</span>[<span class="extype" name="scala.Predef.String">String</span>] with <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
       </span>
       </h4>
       
@@ -48,7 +48,7 @@
 keys.
 </p></div><div class="toggleContainer block">
           <span class="toggle">Linear Supertypes</span>
-          <div class="superTypes hiddenContent"><span class="extype" name="scala.collection.SeqProxy">SeqProxy</span>[<span class="extype" name="scala.Predef.String">String</span>], <span class="extype" name="scala.collection.SeqProxyLike">SeqProxyLike</span>[<span class="extype" name="scala.Predef.String">String</span>, <span class="extype" name="scala.collection.Seq">Seq</span>[<span class="extype" name="scala.Predef.String">String</span>]], <span class="extype" name="scala.collection.IterableProxyLike">IterableProxyLike</span>[<span class="extype" name="scala.Predef.String">String</span>, <span class="extype" name="scala.collection.Seq">Seq</span>[<span class="extype" name="scala.Predef.String">String</span>]], <span class="extype" name="scala.collection.TraversableProxyLike">TraversableProxyLike</span>[<span class="extype" name="scala.Predef.String">String</span>, <span class="extype" name="scala.collection.Seq">Seq</span>[<span class="extype" name="scala.Predef.String">String</span>]], <span class="extype" name="scala.Proxy">Proxy</span>, <span class="extype" name="scala.collection.Seq">Seq</span>[<span class="extype" name="scala.Predef.String">String</span>], <span class="extype" name="scala.collection.SeqLike">SeqLike</span>[<span class="extype" name="scala.Predef.String">String</span>, <span class="extype" name="scala.collection.Seq">Seq</span>[<span class="extype" name="scala.Predef.String">String</span>]], <span class="extype" name="scala.collection.GenSeq">GenSeq</span>[<span class="extype" name="scala.Predef.String">String</span>], <span class="extype" name="scala.collection.GenSeqLike">GenSeqLike</span>[<span class="extype" name="scala.Predef.String">String</span>, <span class="extype" name="scala.collection.Seq">Seq</span>[<span class="extype" name="scala.Predef.String">String</span>]], <span class="extype" name="scala.collection.Iterable">Iterable</span>[<span class="extype" name="scala.Predef.String">String</span>], <span class="extype" name="scala.collection.IterableLike">IterableLike</span>[<span class="extype" name="scala.Predef.String">String</span>, <span class="extype" name="scala.collection.Seq">Seq</span>[<span class="extype" name="scala.Predef.String">String</span>]], <span class="extype" name="scala.Equals">Equals</span>, <span class="extype" name="scala.collection.GenIterable">GenIterable</span>[<span class="extype" name="scala.Predef.String">String</span>], <span class="extype" name="scala.collection.GenIterableLike">GenIterableLike</span>[<span class="extype" name="scala.Predef.String">String</span>, <span class="extype" name="scala.collection.Seq">Seq</span>[<span class="extype" name="scala.Predef.String">String</span>]], <span class="extype" name="scala.collection.Traversable">Traversable</span>[<span class="extype" name="scala.Predef.String">String</span>], <span class="extype" name="scala.collection.GenTraversable">GenTraversable</span>[<span class="extype" name="scala.Predef.String">String</span>], <span class="extype" name="scala.collection.generic.GenericTraversableTemplate">GenericTraversableTemplate</span>[<span class="extype" name="scala.Predef.String">String</span>, <span class="extype" name="scala.collection.Seq">Seq</span>], <span class="extype" name="scala.collection.TraversableLike">TraversableLike</span>[<span class="extype" name="scala.Predef.String">String</span>, <span class="extype" name="scala.collection.Seq">Seq</span>[<span class="extype" name="scala.Predef.String">String</span>]], <span class="extype" name="scala.collection.GenTraversableLike">GenTraversableLike</span>[<span class="extype" name="scala.Predef.String">String</span>, <span class="extype" name="scala.collection.Seq">Seq</span>[<span class="extype" name="scala.Predef.String">String</span>]], <span class="extype" name="scala.collection.Parallelizable">Parallelizable</span>[<span class="extype" name="scala.Predef.String">String</span>, <span class="extype" name="scala.collection.parallel.ParSeq">ParSeq</span>[<span class="extype" name="scala.Predef.String">String</span>]], <span class="extype" name="scala.collection.TraversableOnce">TraversableOnce</span>[<span class="extype" name="scala.Predef.String">String</span>], <span class="extype" name="scala.collection.GenTraversableOnce">GenTraversableOnce</span>[<span class="extype" name="scala.Predef.String">String</span>], <span class="extype" name="scala.collection.generic.FilterMonadic">FilterMonadic</span>[<span class="extype" name="scala.Predef.String">String</span>, <span class="extype" name="scala.collection.Seq">Seq</span>[<span class="extype" name="scala.Predef.String">String</span>]], <span class="extype" name="scala.collection.generic.HasNewBuilder">HasNewBuilder</span>[<span class="extype" name="scala.Predef.String">String</span>, Seq[String] @scala.annotation.unchecked.uncheckedVariance], <span class="extype" name="scala.PartialFunction">PartialFunction</span>[<span class="extype" name="scala.Int">Int</span>, <span class="extype" name="scala.Predef.String">String</span>], (<span class="extype" name="scala.Int">Int</span>) ⇒ <span class="extype" name="scala.Predef.String">String</span>, <span class="extype" name="scala.AnyRef">AnyRef</span>, <span class="extype" name="scala.Any">Any</span></div>
+          <div class="superTypes hiddenContent"><span class="extype" name="scala.Serializable">Serializable</span>, <span class="extype" name="java.io.Serializable">Serializable</span>, <span class="extype" name="scala.Product">Product</span>, <span class="extype" name="scala.collection.SeqProxy">SeqProxy</span>[<span class="extype" name="scala.Predef.String">String</span>], <span class="extype" name="scala.collection.SeqProxyLike">SeqProxyLike</span>[<span class="extype" name="scala.Predef.String">String</span>, <span class="extype" name="scala.collection.Seq">Seq</span>[<span class="extype" name="scala.Predef.String">String</span>]], <span class="extype" name="scala.collection.IterableProxyLike">IterableProxyLike</span>[<span class="extype" name="scala.Predef.String">String</span>, <span class="extype" name="scala.collection.Seq">Seq</span>[<span class="extype" name="scala.Predef.String">String</span>]], <span class="extype" name="scala.collection.TraversableProxyLike">TraversableProxyLike</span>[<span class="extype" name="scala.Predef.String">String</span>, <span class="extype" name="scala.collection.Seq">Seq</span>[<span class="extype" name="scala.Predef.String">String</span>]], <span class="extype" name="scala.Proxy">Proxy</span>, <span class="extype" name="scala.collection.Seq">Seq</span>[<span class="extype" name="scala.Predef.String">String</span>], <span class="extype" name="scala.collection.SeqLike">SeqLike</span>[<span class="extype" name="scala.Predef.String">String</span>, <span class="extype" name="scala.collection.Seq">Seq</span>[<span class="extype" name="scala.Predef.String">String</span>]], <span class="extype" name="scala.collection.GenSeq">GenSeq</span>[<span class="extype" name="scala.Predef.String">String</span>], <span class="extype" name="scala.collection.GenSeqLike">GenSeqLike</span>[<span class="extype" name="scala.Predef.String">String</span>, <span class="extype" name="scala.collection.Seq">Seq</span>[<span class="extype" name="scala.Predef.String">String</span>]], <span class="extype" name="scala.collection.Iterable">Iterable</span>[<span class="extype" name="scala.Predef.String">String</span>], <span class="extype" name="scala.collection.IterableLike">IterableLike</span>[<span class="extype" name="scala.Predef.String">String</span>, <span class="extype" name="scala.collection.Seq">Seq</span>[<span class="extype" name="scala.Predef.String">String</span>]], <span class="extype" name="scala.Equals">Equals</span>, <span class="extype" name="scala.collection.GenIterable">GenIterable</span>[<span class="extype" name="scala.Predef.String">String</span>], <span class="extype" name="scala.collection.GenIterableLike">GenIterableLike</span>[<span class="extype" name="scala.Predef.String">String</span>, <span class="extype" name="scala.collection.Seq">Seq</span>[<span class="extype" name="scala.Predef.String">String</span>]], <span class="extype" name="scala.collection.Traversable">Traversable</span>[<span class="extype" name="scala.Predef.String">String</span>], <span class="extype" name="scala.collection.GenTraversable">GenTraversable</span>[<span class="extype" name="scala.Predef.String">String</span>], <span class="extype" name="scala.collection.generic.GenericTraversableTemplate">GenericTraversableTemplate</span>[<span class="extype" name="scala.Predef.String">String</span>, <span class="extype" name="scala.collection.Seq">Seq</span>], <span class="extype" name="scala.collection.TraversableLike">TraversableLike</span>[<span class="extype" name="scala.Predef.String">String</span>, <span class="extype" name="scala.collection.Seq">Seq</span>[<span class="extype" name="scala.Predef.String">String</span>]], <span class="extype" name="scala.collection.GenTraversableLike">GenTraversableLike</span>[<span class="extype" name="scala.Predef.String">String</span>, <span class="extype" name="scala.collection.Seq">Seq</span>[<span class="extype" name="scala.Predef.String">String</span>]], <span class="extype" name="scala.collection.Parallelizable">Parallelizable</span>[<span class="extype" name="scala.Predef.String">String</span>, <span class="extype" name="scala.collection.parallel.ParSeq">ParSeq</span>[<span class="extype" name="scala.Predef.String">String</span>]], <span class="extype" name="scala.collection.TraversableOnce">TraversableOnce</span>[<span class="extype" name="scala.Predef.String">String</span>], <span class="extype" name="scala.collection.GenTraversableOnce">GenTraversableOnce</span>[<span class="extype" name="scala.Predef.String">String</span>], <span class="extype" name="scala.collection.generic.FilterMonadic">FilterMonadic</span>[<span class="extype" name="scala.Predef.String">String</span>, <span class="extype" name="scala.collection.Seq">Seq</span>[<span class="extype" name="scala.Predef.String">String</span>]], <span class="extype" name="scala.collection.generic.HasNewBuilder">HasNewBuilder</span>[<span class="extype" name="scala.Predef.String">String</span>, Seq[String] @scala.annotation.unchecked.uncheckedVariance], <span class="extype" name="scala.PartialFunction">PartialFunction</span>[<span class="extype" name="scala.Int">Int</span>, <span class="extype" name="scala.Predef.String">String</span>], (<span class="extype" name="scala.Int">Int</span>) ⇒ <span class="extype" name="scala.Predef.String">String</span>, <span class="extype" name="scala.AnyRef">AnyRef</span>, <span class="extype" name="scala.Any">Any</span></div>
         </div></div>
         
 
@@ -66,7 +66,7 @@ keys.
                 <span class="filtertype">Inherited<br />
                 </span>
                 <ol id="linearization">
-                  <li class="in" name="net.uniscala.json.JsonPath"><span>JsonPath</span></li><li class="in" name="scala.collection.SeqProxy"><span>SeqProxy</span></li><li class="in" name="scala.collection.SeqProxyLike"><span>SeqProxyLike</span></li><li class="in" name="scala.collection.IterableProxyLike"><span>IterableProxyLike</span></li><li class="in" name="scala.collection.TraversableProxyLike"><span>TraversableProxyLike</span></li><li class="in" name="scala.Proxy"><span>Proxy</span></li><li class="in" name="scala.collection.Seq"><span>Seq</span></li><li class="in" name="scala.collection.SeqLike"><span>SeqLike</span></li><li class="in" name="scala.collection.GenSeq"><span>GenSeq</span></li><li class="in" name="scala.collection.GenSeqLike"><span>GenSeqLike</span></li><li class="in" name="scala.collection.Iterable"><span>Iterable</span></li><li class="in" name="scala.collection.IterableLike"><span>IterableLike</span></li><li class="in" name="scala.Equals"><span>Equals</span></li><li class="in" name="scala.collection.GenIterable"><span>GenIterable</span></li><li class="in" name="scala.collection.GenIterableLike"><span>GenIterableLike</span></li><li class="in" name="scala.collection.Traversable"><span>Traversable</span></li><li class="in" name="scala.collection.GenTraversable"><span>GenTraversable</span></li><li class="in" name="scala.collection.generic.GenericTraversableTemplate"><span>GenericTraversableTemplate</span></li><li class="in" name="scala.collection.TraversableLike"><span>TraversableLike</span></li><li class="in" name="scala.collection.GenTraversableLike"><span>GenTraversableLike</span></li><li class="in" name="scala.collection.Parallelizable"><span>Parallelizable</span></li><li class="in" name="scala.collection.TraversableOnce"><span>TraversableOnce</span></li><li class="in" name="scala.collection.GenTraversableOnce"><span>GenTraversableOnce</span></li><li class="in" name="scala.collection.generic.FilterMonadic"><span>FilterMonadic</span></li><li class="in" name="scala.collection.generic.HasNewBuilder"><span>HasNewBuilder</span></li><li class="in" name="scala.PartialFunction"><span>PartialFunction</span></li><li class="in" name="scala.Function1"><span>Function1</span></li><li class="in" name="scala.AnyRef"><span>AnyRef</span></li><li class="in" name="scala.Any"><span>Any</span></li>
+                  <li class="in" name="net.uniscala.json.JsonPath"><span>JsonPath</span></li><li class="in" name="scala.Serializable"><span>Serializable</span></li><li class="in" name="java.io.Serializable"><span>Serializable</span></li><li class="in" name="scala.Product"><span>Product</span></li><li class="in" name="scala.collection.SeqProxy"><span>SeqProxy</span></li><li class="in" name="scala.collection.SeqProxyLike"><span>SeqProxyLike</span></li><li class="in" name="scala.collection.IterableProxyLike"><span>IterableProxyLike</span></li><li class="in" name="scala.collection.TraversableProxyLike"><span>TraversableProxyLike</span></li><li class="in" name="scala.Proxy"><span>Proxy</span></li><li class="in" name="scala.collection.Seq"><span>Seq</span></li><li class="in" name="scala.collection.SeqLike"><span>SeqLike</span></li><li class="in" name="scala.collection.GenSeq"><span>GenSeq</span></li><li class="in" name="scala.collection.GenSeqLike"><span>GenSeqLike</span></li><li class="in" name="scala.collection.Iterable"><span>Iterable</span></li><li class="in" name="scala.collection.IterableLike"><span>IterableLike</span></li><li class="in" name="scala.Equals"><span>Equals</span></li><li class="in" name="scala.collection.GenIterable"><span>GenIterable</span></li><li class="in" name="scala.collection.GenIterableLike"><span>GenIterableLike</span></li><li class="in" name="scala.collection.Traversable"><span>Traversable</span></li><li class="in" name="scala.collection.GenTraversable"><span>GenTraversable</span></li><li class="in" name="scala.collection.generic.GenericTraversableTemplate"><span>GenericTraversableTemplate</span></li><li class="in" name="scala.collection.TraversableLike"><span>TraversableLike</span></li><li class="in" name="scala.collection.GenTraversableLike"><span>GenTraversableLike</span></li><li class="in" name="scala.collection.Parallelizable"><span>Parallelizable</span></li><li class="in" name="scala.collection.TraversableOnce"><span>TraversableOnce</span></li><li class="in" name="scala.collection.GenTraversableOnce"><span>GenTraversableOnce</span></li><li class="in" name="scala.collection.generic.FilterMonadic"><span>FilterMonadic</span></li><li class="in" name="scala.collection.generic.HasNewBuilder"><span>HasNewBuilder</span></li><li class="in" name="scala.PartialFunction"><span>PartialFunction</span></li><li class="in" name="scala.Function1"><span>Function1</span></li><li class="in" name="scala.AnyRef"><span>AnyRef</span></li><li class="in" name="scala.Any"><span>Any</span></li>
                 </ol>
               </div><div id="ancestors">
             <span class="filtertype"></span>
@@ -96,32 +96,6 @@ keys.
       </span>
       <span class="symbol">
         <span class="name">JsonPath</span><span class="params">(<span name="segments">segments: <span class="extype" name="scala.Predef.String">String</span>*</span>)</span>
-      </span>
-      </h4>
-      
-    </li><li name="net.uniscala.json.JsonPath#&lt;init&gt;" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="&lt;init&gt;():net.uniscala.json.JsonPath"></a>
-      <a id="&lt;init&gt;:JsonPath"></a>
-      <h4 class="signature">
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">new</span>
-      </span>
-      <span class="symbol">
-        <span class="name">JsonPath</span><span class="params">()</span>
-      </span>
-      </h4>
-      
-    </li><li name="net.uniscala.json.JsonPath#&lt;init&gt;" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="&lt;init&gt;(self:List[String]):net.uniscala.json.JsonPath"></a>
-      <a id="&lt;init&gt;:JsonPath"></a>
-      <h4 class="signature">
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">new</span>
-      </span>
-      <span class="symbol">
-        <span class="name">JsonPath</span><span class="params">(<span name="self">self: <span class="extype" name="scala.List">List</span>[<span class="extype" name="scala.Predef.String">String</span>]</span>)</span>
       </span>
       </h4>
       
@@ -1868,16 +1842,29 @@ function is returned, wrapped in Some.
       </span>
       </h4>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>SeqProxyLike → SeqLike → GenSeqLike</dd></dl></div>
-    </li><li name="net.uniscala.json.JsonPath#self" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="self:List[String]"></a>
-      <a id="self:List[String]"></a>
+    </li><li name="net.uniscala.json.JsonPath#segments" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="segments:String*"></a>
+      <a id="segments:String*"></a>
       <h4 class="signature">
       <span class="modifier_kind">
         <span class="modifier"></span>
         <span class="kind">val</span>
       </span>
       <span class="symbol">
-        <span class="name">self</span><span class="result">: <span class="extype" name="scala.List">List</span>[<span class="extype" name="scala.Predef.String">String</span>]</span>
+        <span class="name">segments</span><span class="result">: <span class="extype" name="scala.Predef.String">String</span>*</span>
+      </span>
+      </h4>
+      
+    </li><li name="net.uniscala.json.JsonPath#self" visbl="pub" data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="self:Seq[String]"></a>
+      <a id="self:Seq[String]"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">val</span>
+      </span>
+      <span class="symbol">
+        <span class="name">self</span><span class="result">: <span class="extype" name="scala.collection.Seq">Seq</span>[<span class="extype" name="scala.Predef.String">String</span>]</span>
       </span>
       </h4>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="" class="extype" name="net.uniscala.json.JsonPath">JsonPath</a> → TraversableProxyLike → Proxy</dd></dl></div>
@@ -2571,7 +2558,13 @@ function is returned, wrapped in Some.
         </div>
 
         <div id="inheritedMembers">
-        <div class="parent" name="scala.collection.SeqProxy">
+        <div class="parent" name="scala.Serializable">
+              <h3>Inherited from <span class="extype" name="scala.Serializable">Serializable</span></h3>
+            </div><div class="parent" name="java.io.Serializable">
+              <h3>Inherited from <span class="extype" name="java.io.Serializable">Serializable</span></h3>
+            </div><div class="parent" name="scala.Product">
+              <h3>Inherited from <span class="extype" name="scala.Product">Product</span></h3>
+            </div><div class="parent" name="scala.collection.SeqProxy">
               <h3>Inherited from <span class="extype" name="scala.collection.SeqProxy">SeqProxy</span>[<span class="extype" name="scala.Predef.String">String</span>]</h3>
             </div><div class="parent" name="scala.collection.SeqProxyLike">
               <h3>Inherited from <span class="extype" name="scala.collection.SeqProxyLike">SeqProxyLike</span>[<span class="extype" name="scala.Predef.String">String</span>, <span class="extype" name="scala.collection.Seq">Seq</span>[<span class="extype" name="scala.Predef.String">String</span>]]</h3>
