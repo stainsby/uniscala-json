@@ -25,17 +25,19 @@ object JsonPath {
  * A path into a hierarchy of JSON objects specified as a sequence of
  * keys.
  */
-class JsonPath(val self: List[String]) extends SeqProxy[String] {
+case class JsonPath(segments: String*) extends SeqProxy[String] {
   
-  def this() = this(Nil)
+  //def this() = this(Nil)
   
-  def this(segments: String*) = this(List(segments:_*))
+  //def this(segments: String*) = this(List(segments:_*))
+  
+  override val self = segments
   
   /**
    * Appends path segments to this path.
    */
   def /(segments: String*): JsonPath = {
-    new JsonPath(self ++ segments)
+    new JsonPath((this.segments ++ segments):_*)
   }
   
   private def filterByClass[J <: JsonValue[_] : Manifest](subjson: JsonValue[_]): Option[J] = {
@@ -62,7 +64,7 @@ class JsonPath(val self: List[String]) extends SeqProxy[String] {
     
     @tailrec def at_(
       json: JsonValue[_],
-      segs: List[String]
+      segs: String*
     ): Option[T] = {
       json match {
         case jobj: JsonObject => {
@@ -72,7 +74,7 @@ class JsonPath(val self: List[String]) extends SeqProxy[String] {
               if (segs.size == 1) {
                 filterByClass[J](subjson).map(f(_))
               } else {
-                at_(subjson, segs.tail)
+                at_(subjson, segs.tail:_*)
               }
             }
           }
@@ -84,7 +86,7 @@ class JsonPath(val self: List[String]) extends SeqProxy[String] {
     if (this.isEmpty) {
       filterByClass[J](jobj).map(f(_))
     } else {
-      at_(jobj, self)
+      at_(jobj, segments:_*)
     }
   }
   
