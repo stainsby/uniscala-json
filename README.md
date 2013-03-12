@@ -89,5 +89,5 @@ SBT. In previous versions, we used Maven.
 [ghusage]: https://github.com/stainsby/uniscala-json/wiki/Usage "Uniscala JSON library - Usage"
 [json]: http://json.org/ "Introducing JSON"
 [license]: http://www.apache.org/licenses/LICENSE-2.0 "Apache License Version 2.0, January 2004"
-[scaladoc]: https://github.com/stainsby/uniscala-json/blob/master/Usage.md "Scaladoc"
+[scaladoc]: http://stainsby.github.com/uniscala-json/scaladocs/index.html "Scaladoc"
 [ss]: http://www.sustainablesoftware.com.au/ "Sustainable Software Pty Ltd"
