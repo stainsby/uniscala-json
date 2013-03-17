@@ -55,11 +55,6 @@ with MapLike[String, JsonValue[_], JsonObject] {
     case _ => value + kv
   }
   
-  /**
-   * Add or override key-value pairs in this JSON object.
-   */
-  def :+(kv: (String, JsonValue[_])*): JsonObject = JsonObject(value ++ kv)
-  
   override def - (key: String) = JsonObject(value - key)
   
   override def empty = JsonObject.empty

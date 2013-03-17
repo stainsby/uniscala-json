@@ -27,10 +27,6 @@ object JsonPath {
  */
 case class JsonPath(segments: String*) extends SeqProxy[String] {
   
-  //def this() = this(Nil)
-  
-  //def this(segments: String*) = this(List(segments:_*))
-  
   override val self = segments
   
   /**

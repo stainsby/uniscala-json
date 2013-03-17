@@ -12,9 +12,7 @@ package net.uniscala.json
 
 import scala.collection.immutable.TreeMap
 
-import org.specs2.mutable._
-import org.specs2.specification.Scope
-import org.specs2.specification.Outside
+import org.scalatest.FunSuite
 
 
 object JsonParserSpec {
@@ -422,13 +420,13 @@ object JsonParserSpec {
   val failure = (null, JSER, 0, null)
 }
 
-class JsonParserSpec extends Specification {
-  
-  sequential
+class JsonParserSpec extends FunSuite {
   
   import JsonParserSpec._
   
-  "matching of JsonValue subclasses must be exhaustive" in {
+  test("matching of JsonValue subclasses must be exhaustive") {
+    
+    // doesn't do any runtime tests- just checks this compiles
     
     def matchAll(json: JsonValue[_]) = json match {
       case str: JsonString => val s: String = str.value
@@ -455,12 +453,10 @@ class JsonParserSpec extends Specification {
       case arr: JsonArray => val v: Vector[JsonValue[_]] = arr.value
       case obj: JsonObject => val m: Map[String, JsonValue[_]] = obj.value
     }
-    
-    true must beTrue
   }
   
   texts.keys foreach { caseName: String =>
-    ("JSON text '" + caseName + "'") should {
+    test("test parsing of JSON text '" + caseName + "'") {
       val expected = texts(caseName)
       val text: String = if (expected._1 == null) caseName else expected._1
       val expectedClass: Class[AnyRef] = expected._2
@@ -471,36 +467,42 @@ class JsonParserSpec extends Specification {
       val res: Either[Throwable, JsonTop[_]] = try {
         Right(JsonParser.parseTop(text))
       } catch {
-        case err => Left(err)
+        case err: Throwable => Left(err)
       }
       if (THBL.isAssignableFrom(expectedClass)) {
-        "throw an exception with class: " + expectedClassName in {
-          res must beLeft and {
+        assert(
+          res.isLeft && {
             val gotClass = nongenericClass(res.left.get.getClass)
-            gotClass ==== expectedClass
-          }
-        }
+            gotClass == expectedClass
+          },
+          "throw an exception with class: " + expectedClassName
+        )
       } else {
         var gotSize: Int = 0;
-        "parse properly" in {
-          res must beRight
-        }
-        "have a result with the class: " + expectedClassName in {
+        assert( res.isRight, "parse properly")
+        assert(
+          {
             jval = res.right.get
-            val gotClass = nongenericClass(jval.getClass)
-            gotClass must beEqualTo(expectedClass)
-        }
-        "have a result with size: " + expectedSize in {
-          gotSize = jval match {
-            case jarr: JsonArray => jarr.length
-            case jobj: JsonObject => jobj.size
-            case _ => 0
-          }
-          gotSize must beEqualTo(expectedSize)
-        }
-        "have a first element with value: " + expectedValue in {
+            val gotClass = nongenericClass(res.right.get.getClass)
+            gotClass == expectedClass
+          },
+          "have a result with the class: " + expectedClassName
+        )
+        
+        assert(
+          {
+            gotSize = jval match {
+              case jarr: JsonArray => jarr.length
+              case jobj: JsonObject => jobj.size
+              case _ => 0
+            }
+            gotSize == expectedSize
+          },
+          "have a result with size: " + expectedSize + " (jval=" + jval + ")"
+        )
+        
+        {
           if (gotSize > 0) {
-            // OK, it's late in the day and I'm tired, so this is ugly
             val dontUnwrap1 = expectedValue.isInstanceOf[JsonValue[_]]
             val dontUnwrap2 = expectedValue.isInstanceOf[Tuple2[_,_]] && {
               val v = expectedValue.asInstanceOf[Tuple2[_,_]]._2
@@ -518,47 +520,57 @@ class JsonParserSpec extends Specification {
               case _ => null
             }
             if (firstElem != null) {
-              nongenericClass(firstElem.getClass) must
-                beEqualTo(nongenericClass(expectedValue.getClass))
+              assert(nongenericClass(firstElem.getClass) ==
+                nongenericClass(expectedValue.getClass))
             }
-            { firstElem must beEqualTo(expectedValue) }
+            assert(firstElem == expectedValue)
           } else {
-            gotSize must beEqualTo(0)
+            assert(gotSize == 0)
           }
         }
-        "toString and then parse again must be idempotent" in {
-          val jval2Either: Either[Throwable, JsonValue[_]] = try {
-            Right(JsonParser.parseTop(jval.toString))
-          } catch {
-            case err => Left(err)
-          }
-          jval2Either must beRight and {
-            val jval2: JsonValue[_] = jval2Either.right.get
-            (jval2: AnyRef) must beEqualTo(jval: AnyRef)
-          }
-        }
-        "toCompactString and then parse again must be idempotent" in {
-          val jval2Either: Either[Throwable, JsonValue[_]] = try {
-            Right(JsonParser.parseTop(jval.toCompactString))
-          } catch {
-            case err => Left(err)
-          }
-          jval2Either must beRight and {
-            val jval2: JsonValue[_] = jval2Either.right.get
-            (jval2: AnyRef) must beEqualTo(jval: AnyRef)
-          }
-        }
-        "toPrettyString and then parse again must be idempotent" in {
-          val jval2Either: Either[Throwable, JsonValue[_]] = try {
-            Right(JsonParser.parseTop(jval.toPrettyString))
-          } catch {
-            case err => Left(err)
-          }
-          jval2Either must beRight and {
-            val jval2: JsonValue[_] = jval2Either.right.get
-            (jval2: AnyRef) must beEqualTo(jval: AnyRef)
-          }
-        }
+        
+        assert(
+          {
+            val jval2Either: Either[Throwable, JsonValue[_]] = try {
+              Right(JsonParser.parseTop(jval.toString))
+            } catch {
+              case err: Throwable => Left(err)
+            }
+            jval2Either.isRight && {
+              val jval2: JsonValue[_] = jval2Either.right.get
+              (jval2: AnyRef) == (jval: AnyRef)
+            }
+          },
+          "toString and then parse again must be idempotent"
+        )
+        assert(
+          {
+            val jval2Either: Either[Throwable, JsonValue[_]] = try {
+              Right(JsonParser.parseTop(jval.toCompactString))
+            } catch {
+              case err: Throwable => Left(err)
+            }
+            jval2Either.isRight && {
+              val jval2: JsonValue[_] = jval2Either.right.get
+              (jval2: AnyRef) == (jval: AnyRef)
+            }
+          },
+          "toCompactString and then parse again must be idempotent"
+        )
+        assert(
+          {
+            val jval2Either: Either[Throwable, JsonValue[_]] = try {
+              Right(JsonParser.parseTop(jval.toPrettyString))
+            } catch {
+              case err: Throwable => Left(err)
+            }
+            jval2Either.isRight && {
+              val jval2: JsonValue[_] = jval2Either.right.get
+              (jval2: AnyRef) == (jval: AnyRef)
+            }
+          },
+          "toPrettyString and then parse again must be idempotent"
+        )
       }
     }
   }

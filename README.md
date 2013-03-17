@@ -17,7 +17,7 @@ Scala longs and doubles. **Thus, this library may not be suitable for
 applications requiring more digits or accuracy than the Scala Long and 
 Double types supply.**
 
-The library has been tested under Scala 2.9.2 and 2.10.0:
+The library has been tested under Scala 2.9.3 and 2.10.1:
 
     > test
     ...
@@ -60,7 +60,7 @@ on your Scala version, use:
 
     <dependency>
       <groupId>net.uniscala</groupId>
-      <artifactId>uniscala-json_2.9.2</artifactId>
+      <artifactId>uniscala-json_2.9.3</artifactId>
       <version>0.3</version>
     </dependency>
   
@@ -76,7 +76,7 @@ in your `pom.xml`, or using SBT, in your `build.sbt`:
 
     "net.uniscala" %% "uniscala-json" % "0.3"
     
-There are builds available for Scala versions 2.9.2 and 2.10.0.
+There are builds available for Scala versions 2.9.3 and 2.10.
 
 
 ## Building

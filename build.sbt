@@ -44,9 +44,12 @@ scalacOptions <<= scalaVersion map { v: String =>
     default ++ ("-feature" :: "-language:implicitConversions" :: Nil)
 }
 
-crossScalaVersions := "2.9.2" :: "2.10.1" :: Nil
+crossScalaVersions := "2.9.3" :: "2.10.1" :: Nil
 
-libraryDependencies ++= Seq("org.specs2" %% "specs2" % "1.12.3" % "test")
+libraryDependencies <+= scalaVersion {
+  case "2.9.3" => "org.scalatest" % "scalatest_2.9.2" % "2.0.M6-SNAP3" % "test"
+  case _       => "org.scalatest" %% "scalatest" % "2.0.M6-SNAP8" % "test"
+}
 
 resolvers += "Local Maven Repository" at "file://"+Path.userHome.absolutePath+"/.m2/repository"
 

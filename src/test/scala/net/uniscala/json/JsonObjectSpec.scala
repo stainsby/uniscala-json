@@ -10,9 +10,8 @@
  */
 package net.uniscala.json
 
-import org.specs2.mutable._
-import org.specs2.specification.Scope
-import org.specs2.specification.Outside
+import org.scalatest.FunSuite
+
 
 object JsonObjectSpec {
   
@@ -28,8 +27,8 @@ object JsonObjectSpec {
           "secret" -> "g4juh43ui9g92"
         ),
         "alt" -> Json(
-          "key"    -> "ER45DFE3",
-          "secret" -> "0867986769de8"
+          "key"    -> "ER45D",
+          "secret" -> "769d8"
         )        
       ),
       "and" -> 123,
@@ -136,137 +135,140 @@ object JsonObjectSpec {
   
   def toClassName(obj: AnyRef): String =
     obj.getClass.getSimpleName.replace("$", "")
+  
+  def assertPathValue(
+    src: JsonObject,
+    pathValues: (JsonPath, JsonValue[_])*
+  ) = {
+    pathValues.foreach { case(path, expected) =>
+      val result = src.getAt[JsonValue[_]](path)
+      assert(
+        if (expected == None) result == None else result == Some(expected),
+        "path " + path + " applied to " + src + " yielded " + result +
+          " but the expected result is " + expected
+      )
+    }
+  }
 }
 
 
-class JsonObjectSpec extends Specification {
+
+class JsonObjectSpec extends FunSuite {
   
+  import Json._
+  import JsonPath._
   import JsonObjectSpec._
   import TestData._
-  import Json._
   
-  sequential
-  
-  "getAt" should {
-    "act like identity for the root path" in {
-      user1.getAt[JsonObject](JsonPath.root) must beEqualTo(Some(user1))
-    }
-    "work for all depths" in {
-      user1.getAt[JsonValue[_]](JsonPath.root / "type") must
-        beEqualTo(Some(JsonString("user")))
-      user1.getAt[JsonValue[_]](JsonPath.root / "profiles" / "alt") must
-        beEqualTo(Some(Json("key"    -> "ER45DFE3", "secret" -> "0867986769de8")))
-      user1.getAt[JsonValue[_]](JsonPath.root / "and") must
-        beEqualTo(Some(JsonInteger(123)))
-      user1.getAt[JsonValue[_]](JsonPath.root / "n") must
-        beEqualTo(Some(JsonNull))
-      user1.getAt[JsonValue[_]](JsonPath.root / "t") must
-        beEqualTo(Some(JsonTrue))
-      user1.getAt[JsonValue[_]](JsonPath.root / "f") must
-        beEqualTo(Some(JsonFalse))
-      user1.getAt[JsonValue[_]](JsonPath.root / "d") must
-        beEqualTo(Some(JsonFloat(34.567)))
-      user1.getAt[JsonValue[_]](JsonPath.root / "more" / "stuff") must
-        beEqualTo(Some(Json(1, "aa", Json("bb" -> "BB"))))
-    }
+  test("test getAt") {
+    assertPathValue(
+      user1,
+      (/ / "type", "user"),
+      (/ / "profiles" / "alt", Json("key" -> "ER45D", "secret" -> "769d8")),
+      (/ / "and", 123),
+      (/ / "n", Jnull),
+      (/ / "t", true),
+      (/ / "f", false),
+      (/ / "d", 34.567d),
+      (/ / "more" / "stuff", Json(1, "aa", Json("bb" -> "BB")))
+    )
   }
   
-  "the tree map operation" should {
-    
-    "always map an empty object to an empty object" in {
-      JsonObject().treeMap((j) => JsonString("NEVER")) must
-        beEqualTo(JsonObject())
-    }
-    
-    "be idempotent with the identity function" in {
-      user1.treeMap((j) => j) must beEqualTo(user1)
-    }
-    
-    "be able to map over a tree structure" in {
-      (user1 treeMap { j => 
+  test("test treeMap") {
+    assert(
+      JsonObject().treeMap((j) => JsonString("NEVER")) == JsonObject(),
+      "always maps an empty object to an empty object"
+    )
+    assert(
+      user1.treeMap((j) => j) == user1,
+      "idempotent with the identity function"
+    )
+    assert(
+      user1.treeMap { j => 
         j match {
           case jobj: JsonObject => jobj
           case _ => JsonString(toClassName(j))
         }
-      }) must
-        beEqualTo(user1MappedToTypeNamesTree)
-    }
-    
-    "be able to flatten a tree" in {
-      (user1 treeMap { j => JsonString(toClassName(j)) }) must
-        beEqualTo(user1MappedToTypeNamesFlat)
-    }
+      } == user1MappedToTypeNamesTree,
+      "able to map over a tree structure"
+    )   
+    assert(
+      user1.treeMap { j =>
+        JsonString(toClassName(j)) }
+       == user1MappedToTypeNamesFlat,
+      "able to flatten a tree"
+    )
   }
   
-  "the tree collect operation" should {
-    
-    "always collect an empty object to an empty object" in {
-      JsonObject() treeCollect {case j: JsonValue[_] =>
-        JsonString("NEVER")
-      } must beEqualTo(JsonObject())
-    }
-    
-    "be idempotent with the identity function" in {
-      user1.treeCollect { case j: JsonValue[_] => j } must beEqualTo(user1)
-    }
-    
-    "be able to collect over a tree structure" in {
+  test("test treeCollect") {
+    assert(
+      JsonObject().treeCollect {case j: JsonValue[_] =>
+        JsonString("NEVER") } == JsonObject(),
+      "always collect an empty object to an empty object"
+    )
+    assert(
+      user1.treeCollect { case j: JsonValue[_] => j } == user1,
+      "idempotent with the identity function"
+    )
+    assert(
       (user1 treeCollect {
         case jobj: JsonObject => jobj
         case j: JsonInteger => JsonString(toClassName(j))
-      }) must
-        beEqualTo(user1CollectedIntegersTree)
-    }
-    
-    "be able to flatten a tree" in {
-      (user1 treeCollect { case j: JsonInteger => JsonString(toClassName(j)) }) must
-        beEqualTo(user1CollectedIntegersFlat)
-    }
+      }) == user1CollectedIntegersTree,
+      "able to collect over a tree structure"
+    )
+    assert(
+      user1.treeCollect { case j: JsonInteger => JsonString(toClassName(j)) }
+      == user1CollectedIntegersFlat,
+      "able to flatten a tree"
+    )
   }
   
-  "the path map operation" should {
-    
-    "always map an empty object to an empty object" in {
-      JsonObject().pathMap((pj) => JsonString("NEVER")) must
-        beEqualTo(JsonObject())
-    }
-    
-    "be idempotent with the identity function" in {
-      user1.pathMap((pj) => pj._2) must beEqualTo(user1)
-    }
-    
-    "be able to map over a tree structure" in {
-      (user1 pathMap { pj => 
+  test("test pathMap") {
+    assert(
+      JsonObject().pathMap((pj) => JsonString("NEVER")) == JsonObject(),
+      "always map an empty object to an empty object"
+    )
+    assert(
+      user1.pathMap((pj) => pj._2) == user1,
+      "idempotent with the identity function"
+    )
+    assert(
+      user1.pathMap { pj => 
         pj match {
           case (_, jobj: JsonObject) => jobj
           case (path, json) =>
             JsonString(path.toString + "_" + toClassName(json))
         }
-      }) must
-        beEqualTo(user1PathMappedToTypeNamesTree) 
-    }
+      } == user1PathMappedToTypeNamesTree,
+      "able to map over a tree structure"
+    )
   }
   
-  "the path collect operation" should {
-    
-    "always collect an empty object to an empty object" in {
-      JsonObject() pathCollect { case (p, j) =>
+  test("test pathCollect") {
+    assert(
+      JsonObject().pathCollect { case (p, j) =>
         JsonString("NEVER")
-      } must beEqualTo(JsonObject())
-    }
-    
-    "be idempotent with the identity function" in {
-      user1.pathCollect { case (p, j) => j } must beEqualTo(user1)
-    }
-    
-    "be able to collect over a tree structure" in {
-      (user1 pathCollect {
+      } == JsonObject(),
+      "always collect an empty object to an empty object"
+    )
+    assert(
+      JsonObject().pathCollect { case (p, j) =>
+        JsonString("NEVER")
+      } == JsonObject(),
+      "always collect an empty object to an empty object"
+    )
+    assert(
+      user1.pathCollect { case (p, j) => j } == user1,
+      "idempotent with the identity function"
+    )
+    assert(
+      (user1.pathCollect {
         case (path, jobj: JsonObject) => jobj
         case (path, jint: JsonInteger) =>
           JsonString(path.toString+ "_" + toClassName(jint))
-      }) must
-        beEqualTo(user1PathCollectedIntegersTree)
-    }
+      }) == user1PathCollectedIntegersTree,
+      "able to collect over a tree structure"
+    )
   }
-
 }
