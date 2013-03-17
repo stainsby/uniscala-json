@@ -88,6 +88,7 @@ SBT. In previous versions, we used Maven.
 
  * **version 0.4**
    - added convenient unwrapping methods to `JsonObject`: `getString`, `getBoolean`, etc.
+   - removed the redundant (and badly named) `:+` operator from `JsonObject`
    - `JsonPath` became a case class that is more amenable to pattern matching
    - moved from Specs2 to Scalatest for testing, since the latter seems much faster
 
