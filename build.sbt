@@ -2,7 +2,7 @@ name := "Uniscala JSON"
 
 organization := "net.uniscala"
 
-version := "0.4-SNAPSHOT"
+version := "0.5-SNAPSHOT"
 
 description := "A compact JSON library written in Scala."
 
