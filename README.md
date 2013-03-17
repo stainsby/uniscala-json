@@ -84,6 +84,13 @@ There are builds available for Scala versions 2.9.3 and 2.10.
 As of version 0.3, Uniscala JSON is built in a fairly standard way using 
 SBT. In previous versions, we used Maven.
 
+## History
+
+ * **version 0.4**
+   - added convenient unwrapping methods to `JsonObject`: `getString`, `getBoolean`, etc.
+   - `JsonPath` became a case class that is more amenable to pattern matching
+   - moved from Specs2 to Scalatest for testing, since the latter seems much faster
+
 
 [ghproject]: https://github.com/stainsby/uniscala-json "Uniscala JSON on GitHub"
 [ghusage]: https://github.com/stainsby/uniscala-json/wiki/Usage "Uniscala JSON library - Usage"
