@@ -36,7 +36,7 @@ pomExtra := (
   </developers>
 )
 
-scalaVersion := "2.10.0"
+scalaVersion := "2.10.1"
 
 scalacOptions <<= scalaVersion map { v: String =>
   val default = "-deprecation" :: "-unchecked" :: Nil
@@ -44,7 +44,7 @@ scalacOptions <<= scalaVersion map { v: String =>
     default ++ ("-feature" :: "-language:implicitConversions" :: Nil)
 }
 
-crossScalaVersions := "2.9.2" :: "2.10.0" :: Nil
+crossScalaVersions := "2.9.2" :: "2.10.1" :: Nil
 
 libraryDependencies ++= Seq("org.specs2" %% "specs2" % "1.12.3" % "test")
 
