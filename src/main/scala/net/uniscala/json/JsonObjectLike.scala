@@ -265,7 +265,7 @@ with MapLike[String, JsonValue[_], JsonObject] {
   
   override lazy val toPrettyString: String = toPrettyString_("", "  ")
   
-  def toPrettyString_(margin: String, indent: String): String = {
+  override def toPrettyString_(margin: String, indent: String): String = {
     val builder = new StringBuilder
     builder += '{'
     var first = true
@@ -320,5 +320,18 @@ with MapLike[String, JsonValue[_], JsonObject] {
     builder += '}'
     builder.toString
   }
-
+  
+  private def toNativeValue(jval: JsonValue[_]): Any = jval match {
+    case jbool: JsonBoolean => jbool.value
+    case jflt: JsonFloat => jflt.value
+    case jint: JsonInteger => jint.value
+    case jstr: JsonString => jstr.value
+    case JsonNull => null
+    case jobj: JsonObject => jobj.toNativeMap
+    case jarr: JsonArray => jarr.value.map(toNativeValue(_))
+  }
+  
+  def toNativeMap: Map[String, Any] = this.map {
+    case (name: String, value: Any) => (name, toNativeValue(value))
+  }
 }
