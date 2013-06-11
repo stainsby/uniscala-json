@@ -12,7 +12,7 @@ object JsonPointerSuite {
     pointerStr: String,
     applications: (JsonValue[_], Option[JsonValue[_]])*
   ): Unit = {
-    val ptr = Pointer(pointerStr)
+    val ptr = JsonPointer(pointerStr)
     applications.foreach { case (source, expectedResult) =>
       val result = ptr.apply[J](source)
       assert(
@@ -29,7 +29,7 @@ object JsonPointerSuite {
     applications: (String, Option[JsonValue[_]])*
   ): Unit = {
     applications.foreach { case (pointerStr, expectedResult) =>
-      val ptr = Pointer(pointerStr)
+      val ptr = JsonPointer(pointerStr)
       val result = ptr.apply[J](value)
       assert(
         result == expectedResult,

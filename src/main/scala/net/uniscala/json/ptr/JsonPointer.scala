@@ -4,25 +4,25 @@ import net.uniscala.json._
 import scala.collection.SeqProxy
 
 
-// TODO: try case class Pointer(segments: PointerSegment*) approach,
+// TODO: try case class Pointer(segments: JsonPointerSegment*) approach,
 // similar to JsonPath?
 
 /**
  * A JSON Pointer.
  * As per http://tools.ietf.org/html/draft-ietf-appsawg-json-pointer-07
  */
-class Pointer (val self: List[PointerSegment])
-extends SeqProxy[PointerSegment] {
+class JsonPointer (val self: List[JsonPointerSegment])
+extends SeqProxy[JsonPointerSegment] {
   
-  def this(segs: PointerSegment*) = this(List(segs:_*))
+  def this(segs: JsonPointerSegment*) = this(List(segs:_*))
   
-  def segments: List[PointerSegment] = self
+  def segments: List[JsonPointerSegment] = self
   
   /**
    * Appends segments to this pointer.
    */
-  def /(segments: String*): Pointer =
-    new Pointer(self ++ segments.map(PointerSegment(_)))
+  def /(segments: String*): JsonPointer =
+    new JsonPointer(self ++ segments.map(JsonPointerSegment(_)))
   
   /**
    * Applies this pointer to a JSON value, extracting the value pointed to if
@@ -36,11 +36,11 @@ extends SeqProxy[PointerSegment] {
         val id = seg.id // property name or array index
         jvalOpt.foreach { jval =>
           (seg, jval) match {
-            case (ns: NumericSegment, jarr: JsonArray) => {
+            case (ns: JsonNumericSegment, jarr: JsonArray) => {
               val idx = ns.asIndex
               jvalOpt = if (idx < jarr.length) Some(jarr(idx)) else None
             }
-            case (StringSegment(nid), jarr: JsonArray) => jvalOpt = None
+            case (JsonStringSegment(nid), jarr: JsonArray) => jvalOpt = None
             case (s, jobj: JsonObject) =>
               jvalOpt = jobj.getAt[JsonValue[_]](s.id)
             case _ => jvalOpt = None
@@ -59,19 +59,19 @@ extends SeqProxy[PointerSegment] {
     val bld = new StringBuilder
     segments.foreach { seg =>
       bld.append("/")
-      bld.append(Pointer.encodeSegment(seg.id))
+      bld.append(JsonPointer.encodeSegment(seg.id))
     }
     bld.toString
   }
 }
 
 
-object Pointer {
+object JsonPointer {
   
   private val encodedEntities = "~0|~1".r
   private val encodingEntities = "~|/".r
   
-  def apply(pointerStr: String): Pointer = {
+  def apply(pointerStr: String): JsonPointer = {
     
     assert(
       pointerStr == "" || pointerStr.startsWith("/"),
@@ -83,7 +83,7 @@ object Pointer {
           pointerStr.split("/").drop(1)
       }
     }
-    new Pointer(parts.map { part => PointerSegment(decodeSegment(part)) }:_*)
+    new JsonPointer(parts.map { part => JsonPointerSegment(decodeSegment(part)) }:_*)
   }
   
   def decodeSegment(encoded: String): String = {
