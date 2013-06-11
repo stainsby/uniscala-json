@@ -36,7 +36,7 @@ pomExtra := (
   </developers>
 )
 
-scalaVersion := "2.10.1"
+scalaVersion := "2.10.2"
 
 scalacOptions <<= scalaVersion map { v: String =>
   val default = "-deprecation" :: "-unchecked" :: Nil
@@ -44,7 +44,7 @@ scalacOptions <<= scalaVersion map { v: String =>
     default ++ ("-feature" :: "-language:implicitConversions" :: Nil)
 }
 
-crossScalaVersions := "2.9.3" :: "2.10.1" :: Nil
+crossScalaVersions := "2.9.3" :: "2.10.2" :: Nil
 
 libraryDependencies <+= scalaVersion {
   case "2.9.3" => "org.scalatest" % "scalatest_2.9.2" % "2.0.M6-SNAP3" % "test"
