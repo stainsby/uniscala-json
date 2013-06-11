@@ -50,7 +50,7 @@ extends SeqProxy[PointerSegment] {
       segs = segs.tail
     }
     jvalOpt match {
-      case Some(j: J) if j.isInstanceOf[J]  => Some(j)
+      case Some(j: J) if manifest[J].erasure.isAssignableFrom(j.getClass) => Some(j)
       case _ => None
     }
   }
