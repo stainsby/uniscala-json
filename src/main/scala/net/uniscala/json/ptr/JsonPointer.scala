@@ -71,6 +71,8 @@ object JsonPointer {
   private val encodedEntities = "~0|~1".r
   private val encodingEntities = "~|/".r
   
+  val root = JsonPointer("")
+  
   def apply(pointerStr: String): JsonPointer = {
     
     assert(
